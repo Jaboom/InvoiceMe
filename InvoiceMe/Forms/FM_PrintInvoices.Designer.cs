@@ -1,6 +1,6 @@
-﻿namespace InvoiceMe
+﻿namespace InvoiceMe.Forms
 {
-    partial class Form1
+    partial class FM_PrintInvoices
     {
         /// <summary>
         /// Required designer variable.
@@ -28,12 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // FM_PrintInvoices
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(282, 253);
+            this.Name = "FM_PrintInvoices";
+            this.Text = "Print Invoices";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FM_PrintInvoices_FormClosed);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
     }
 }
-
