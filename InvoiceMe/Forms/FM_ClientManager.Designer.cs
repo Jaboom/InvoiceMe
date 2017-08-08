@@ -261,6 +261,7 @@
             this.cb_clientselection.Name = "cb_clientselection";
             this.cb_clientselection.Size = new System.Drawing.Size(575, 39);
             this.cb_clientselection.TabIndex = 21;
+            this.cb_clientselection.Visible = false;
             // 
             // tickBox_editMode
             // 
