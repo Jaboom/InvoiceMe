@@ -3,10 +3,10 @@ Simple invoice program
 
 ## Stage 1
 ### UI design
-- Login form
+- Login form	(Done)
 - MainMenu from (Done)
 - Contact form  (Done)
-- Invoice form 
+- Invoice form 	(Done)
 - Overview form (Done)
 - Print form 
 
