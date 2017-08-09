@@ -27,12 +27,14 @@ namespace InvoiceMe.Forms
         {
             if ( tickBox_editMode.Checked == false )
             {
+                tickBox_editMode.BackColor = Color.White;
                 cb_clientselection.Visible = false;
                 pnl_edit.BorderStyle = BorderStyle.Fixed3D;
                 btn_save.Text = "Save"; btn_save.BackColor = Color.PaleTurquoise;
                 lb_clientTitle.Text = "New Client";
             } else
             {
+                tickBox_editMode.BackColor = Color.Red;
                 cb_clientselection.Visible = true;
                 pnl_edit.BorderStyle = BorderStyle.FixedSingle;
                 btn_save.Text = "Save Changes"; btn_save.BackColor = Color.Tomato;
