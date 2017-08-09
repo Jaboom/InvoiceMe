@@ -268,7 +268,6 @@
             this.lb_editof.TabIndex = 27;
             this.lb_editof.Text = "of";
             this.lb_editof.Visible = false;
-            this.lb_editof.Click += new System.EventHandler(this.lb_editof_Click);
             // 
             // lb_invoiceTotal
             // 

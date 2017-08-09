@@ -60,22 +60,17 @@ namespace InvoiceMe.Forms
 
         private void btn_previousInvoice_Click(object sender, EventArgs e)
         {
-
+            // scroll to previous invoice in sinvoice table where selected client's ID = clients ID
         }
 
         private void btn_nextInvoice_Click(object sender, EventArgs e)
         {
-
+            // scroll to next invoice in invoice table where selected client's ID = clients ID
         }
 
         private void tb_invoiceNo_TextChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void lb_editof_Click(object sender, EventArgs e)
-        {
-
+            // scroll to invoice number (NOT INVOICE ID) in invoice table where selected client's ID = clients ID
         }
 
     }
