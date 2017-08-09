@@ -242,6 +242,7 @@
             this.btn_new.TabIndex = 25;
             this.btn_new.Text = "Create New";
             this.btn_new.UseVisualStyleBackColor = false;
+            this.btn_new.Click += new System.EventHandler(this.btn_new_Click);
             // 
             // pnl_edit
             // 

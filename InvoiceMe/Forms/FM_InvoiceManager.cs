@@ -73,5 +73,19 @@ namespace InvoiceMe.Forms
             // scroll to invoice number (NOT INVOICE ID) in invoice table where selected client's ID = clients ID
         }
 
+        private void btn_new_Click(object sender, EventArgs e)
+        {
+            if( tickBox_editMode.Checked == false)
+            {
+                // New Invoice
+
+
+            }else
+            {
+                // Edit Invoice
+
+
+            }
+        }
     }
 }
