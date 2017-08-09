@@ -38,6 +38,5 @@ namespace InvoiceMe
                 this.Hide();
             } else { MessageBox.Show("Incorrect Username or Password"); }
         }
-        
     }
 }
