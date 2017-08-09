@@ -21,7 +21,7 @@ Simple invoice program
 - Print form to output invoice to print
 
 ### Feedback
-- Fonts changes to more readable font
+- Fonts changes to more readable font		(Done)
 
 ## Stage 2
 ### UI design
