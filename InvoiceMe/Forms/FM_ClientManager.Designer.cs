@@ -53,6 +53,7 @@
             this.tickBox_editMode = new System.Windows.Forms.CheckBox();
             this.pnl_edit = new System.Windows.Forms.Panel();
             this.btn_save = new System.Windows.Forms.Button();
+            this.btn_delete = new System.Windows.Forms.Button();
             this.pnl_edit.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -302,12 +303,28 @@
             this.btn_save.UseVisualStyleBackColor = false;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
+            // btn_delete
+            // 
+            this.btn_delete.BackColor = System.Drawing.Color.Red;
+            this.btn_delete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_delete.Enabled = false;
+            this.btn_delete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_delete.Font = new System.Drawing.Font("Hobo Std", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_delete.Location = new System.Drawing.Point(575, 470);
+            this.btn_delete.Name = "btn_delete";
+            this.btn_delete.Size = new System.Drawing.Size(208, 59);
+            this.btn_delete.TabIndex = 24;
+            this.btn_delete.Text = "Delete";
+            this.btn_delete.UseVisualStyleBackColor = false;
+            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
+            // 
             // FM_ClientManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.OldLace;
             this.ClientSize = new System.Drawing.Size(838, 625);
+            this.Controls.Add(this.btn_delete);
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.pnl_edit);
             this.Controls.Add(this.tb_clientName);
@@ -371,5 +388,6 @@
         private System.Windows.Forms.CheckBox tickBox_editMode;
         private System.Windows.Forms.Panel pnl_edit;
         private System.Windows.Forms.Button btn_save;
+        private System.Windows.Forms.Button btn_delete;
     }
 }

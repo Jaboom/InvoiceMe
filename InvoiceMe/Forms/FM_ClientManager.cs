@@ -32,6 +32,7 @@ namespace InvoiceMe.Forms
                 pnl_edit.BorderStyle = BorderStyle.Fixed3D;
                 btn_save.Text = "Save"; btn_save.BackColor = Color.PaleTurquoise;
                 lb_clientTitle.Text = "New Client";
+                btn_delete.Enabled = false;
             } else
             {
                 tickBox_editMode.BackColor = Color.Red;
@@ -39,6 +40,7 @@ namespace InvoiceMe.Forms
                 pnl_edit.BorderStyle = BorderStyle.FixedSingle;
                 btn_save.Text = "Save Changes"; btn_save.BackColor = Color.Tomato;
                 lb_clientTitle.Text = "Edit Client";
+                btn_delete.Enabled = true;
             }
         }
 
@@ -55,6 +57,11 @@ namespace InvoiceMe.Forms
 
 
             }
+        }
+
+        private void btn_delete_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
