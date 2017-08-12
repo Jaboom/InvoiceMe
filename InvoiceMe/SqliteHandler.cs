@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.Data;
+using System.Windows.Forms;
 
 // forgien key needs inputting
+// Error index 1
 
 namespace InvoiceMe
 {
@@ -60,7 +62,34 @@ namespace InvoiceMe
             dt.Load(dataReader);
             return dt;
         }
- 
+        // adds row to client database ( needs some checks like blank fields etc ) 
+        // maybe change to overload function with expandable tables and fields
+        public void InsertNewClientData(string myConnString, string myTable, string name, string addr1, string addr2, string pcode, 
+            string city, string telephone, string mobile, string email)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(myConnString))
+                {
+                    SQLiteCommand sqCommand = conn.CreateCommand();
+                    sqCommand.CommandText = "INSERT INTO " + myTable + // command to Insert to given table
+                    "(ClientName,AddressLine1,AddressLine2,Postcode,City,Telephone,Mobile,Email)" + //given fields for inserting ( currently only set to client table)
+                    "VALUES('" + name + "','" + addr1 + "','" + addr2 + "','" + pcode +  // variables taken from form
+                    "','" + city + "','" + telephone + "','" + mobile + "','" + email + "')"; // variables take from form (not split by ',' )
+                    conn.Open();
+                    Debug.WriteLine(sqCommand.CommandText);
+                    sqCommand.ExecuteNonQuery();
+                    conn.Close();
+                    MessageBox.Show( "Added Successfully",myTable);
+                }
+            }
+            catch
+            {
+                MessageBox.Show( "Error: " + 1 + "x" + 1.ToString("x") + "/nPlease Report this");
+            }
+        }
+        
+
         public void ReadMyData(string myConnString, string myTable)
         {
             SQLiteConnection sqConnection = new SQLiteConnection(myConnString);

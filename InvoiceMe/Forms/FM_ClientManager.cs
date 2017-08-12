@@ -12,6 +12,8 @@ namespace InvoiceMe.Forms
 {
     public partial class FM_ClientManager : Form
     {
+        SqliteHandler sql = new SqliteHandler();
+
         public FM_ClientManager()
         {
             InitializeComponent();
@@ -27,12 +29,14 @@ namespace InvoiceMe.Forms
         {
             if ( tickBox_editMode.Checked == false )
             {
+                tickBox_editMode.BackColor = Color.White;
                 cb_clientselection.Visible = false;
                 pnl_edit.BorderStyle = BorderStyle.Fixed3D;
                 btn_save.Text = "Save"; btn_save.BackColor = Color.PaleTurquoise;
                 lb_clientTitle.Text = "New Client";
             } else
             {
+                tickBox_editMode.BackColor = Color.Red;
                 cb_clientselection.Visible = true;
                 pnl_edit.BorderStyle = BorderStyle.FixedSingle;
                 btn_save.Text = "Save Changes"; btn_save.BackColor = Color.Tomato;
@@ -44,8 +48,17 @@ namespace InvoiceMe.Forms
         {
             if ( tickBox_editMode.Checked == false)
             {
-                //normal save mode
+                if (tb_clientName.Text == "") { MessageBox.Show("Clients Name can not be empty"); return; }
+                //normal save mode ( more error checking required - also option on button save yes / no
 
+                sql.InsertNewClientData(FM_LoginScreen.conString, "ClientTable", tb_clientName.Text
+                , tb_addressL1.Text, tb_addressL2.Text, tb_postcode.Text, tb_city.Text, tb_telephone.Text
+                , tb_mobile.Text, tb_email.Text);
+
+
+                // set fields back to blank
+                tb_clientName.Text = tb_addressL1.Text = tb_addressL2.Text = tb_postcode.Text = tb_city.Text =
+                tb_telephone.Text = tb_mobile.Text = tb_email.Text = "";                
 
             }else
             {

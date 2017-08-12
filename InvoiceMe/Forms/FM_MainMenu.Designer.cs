@@ -39,7 +39,7 @@
             this.btn_invoicemgr.BackColor = System.Drawing.Color.PaleTurquoise;
             this.btn_invoicemgr.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_invoicemgr.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_invoicemgr.Font = new System.Drawing.Font("Rosewood Std Regular", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_invoicemgr.Font = new System.Drawing.Font("Hobo Std", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_invoicemgr.ForeColor = System.Drawing.Color.Black;
             this.btn_invoicemgr.Location = new System.Drawing.Point(118, 120);
             this.btn_invoicemgr.Name = "btn_invoicemgr";
@@ -54,7 +54,7 @@
             this.btn_clientmgr.BackColor = System.Drawing.Color.PaleTurquoise;
             this.btn_clientmgr.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_clientmgr.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_clientmgr.Font = new System.Drawing.Font("Rosewood Std Regular", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_clientmgr.Font = new System.Drawing.Font("Hobo Std", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_clientmgr.ForeColor = System.Drawing.Color.Black;
             this.btn_clientmgr.Location = new System.Drawing.Point(118, 220);
             this.btn_clientmgr.Name = "btn_clientmgr";
@@ -69,7 +69,7 @@
             this.btn_overview.BackColor = System.Drawing.Color.PaleTurquoise;
             this.btn_overview.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_overview.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_overview.Font = new System.Drawing.Font("Rosewood Std Regular", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_overview.Font = new System.Drawing.Font("Hobo Std", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_overview.ForeColor = System.Drawing.Color.Black;
             this.btn_overview.Location = new System.Drawing.Point(118, 320);
             this.btn_overview.Name = "btn_overview";
@@ -84,7 +84,7 @@
             this.btn_printinvoices.BackColor = System.Drawing.Color.PaleTurquoise;
             this.btn_printinvoices.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_printinvoices.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_printinvoices.Font = new System.Drawing.Font("Rosewood Std Regular", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_printinvoices.Font = new System.Drawing.Font("Hobo Std", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_printinvoices.ForeColor = System.Drawing.Color.Black;
             this.btn_printinvoices.Location = new System.Drawing.Point(118, 420);
             this.btn_printinvoices.Name = "btn_printinvoices";
