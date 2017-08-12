@@ -215,9 +215,9 @@
             this.lb_latepayments.Font = new System.Drawing.Font("Hobo Std", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_latepayments.Location = new System.Drawing.Point(644, 73);
             this.lb_latepayments.Name = "lb_latepayments";
-            this.lb_latepayments.Size = new System.Drawing.Size(30, 34);
+            this.lb_latepayments.Size = new System.Drawing.Size(39, 34);
             this.lb_latepayments.TabIndex = 16;
-            this.lb_latepayments.Text = "0";
+            this.lb_latepayments.Text = "...";
             // 
             // tb_mobile
             // 
@@ -242,9 +242,9 @@
             this.lb_clientID.Font = new System.Drawing.Font("Hobo Std", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_clientID.Location = new System.Drawing.Point(204, 73);
             this.lb_clientID.Name = "lb_clientID";
-            this.lb_clientID.Size = new System.Drawing.Size(30, 34);
+            this.lb_clientID.Size = new System.Drawing.Size(39, 34);
             this.lb_clientID.TabIndex = 19;
-            this.lb_clientID.Text = "0";
+            this.lb_clientID.Text = "...";
             // 
             // tb_clientName
             // 
@@ -260,9 +260,10 @@
             this.cb_clientselection.FormattingEnabled = true;
             this.cb_clientselection.Location = new System.Drawing.Point(202, 17);
             this.cb_clientselection.Name = "cb_clientselection";
-            this.cb_clientselection.Size = new System.Drawing.Size(575, 39);
+            this.cb_clientselection.Size = new System.Drawing.Size(138, 39);
             this.cb_clientselection.TabIndex = 21;
             this.cb_clientselection.Visible = false;
+            this.cb_clientselection.SelectedIndexChanged += new System.EventHandler(this.cb_clientselection_SelectedIndexChanged);
             // 
             // tickBox_editMode
             // 
@@ -282,6 +283,7 @@
             // 
             this.pnl_edit.BackColor = System.Drawing.Color.Tomato;
             this.pnl_edit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnl_edit.Controls.Add(this.btn_delete);
             this.pnl_edit.Controls.Add(this.cb_clientselection);
             this.pnl_edit.Controls.Add(this.tickBox_editMode);
             this.pnl_edit.Location = new System.Drawing.Point(6, 539);
@@ -305,14 +307,13 @@
             // 
             // btn_delete
             // 
-            this.btn_delete.BackColor = System.Drawing.Color.Red;
+            this.btn_delete.BackColor = System.Drawing.Color.Gray;
             this.btn_delete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_delete.Enabled = false;
-            this.btn_delete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_delete.Font = new System.Drawing.Font("Hobo Std", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_delete.Location = new System.Drawing.Point(575, 470);
+            this.btn_delete.Location = new System.Drawing.Point(579, 14);
             this.btn_delete.Name = "btn_delete";
-            this.btn_delete.Size = new System.Drawing.Size(208, 59);
+            this.btn_delete.Size = new System.Drawing.Size(208, 44);
             this.btn_delete.TabIndex = 24;
             this.btn_delete.Text = "Delete";
             this.btn_delete.UseVisualStyleBackColor = false;
@@ -324,7 +325,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.OldLace;
             this.ClientSize = new System.Drawing.Size(838, 625);
-            this.Controls.Add(this.btn_delete);
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.pnl_edit);
             this.Controls.Add(this.tb_clientName);

@@ -15,6 +15,7 @@ namespace InvoiceMe
 {
     class SqliteHandler
     {
+        // not in use, this method can be used to set password of DB
         public void SetDBpassword(string myConnString, string password = null)
         {
             if (password == null)
@@ -32,7 +33,7 @@ namespace InvoiceMe
                 sqConnection.Close();
             }
         }
-
+        // used to check user has an account
         public bool CheckLogin(string myConnString, string myTable, string user, string password)
         {
             using (SQLiteConnection conn = new SQLiteConnection(myConnString))
@@ -48,7 +49,7 @@ namespace InvoiceMe
             }
 
         }
-        // retrive whole data table
+        // retrive whole data table (used to fill data grids) (possible split to groups depending on how big DB gets)
         public DataTable DataTable(string myConnString, string myTable)
         {
             SQLiteConnection sqConnection = new SQLiteConnection(myConnString);
@@ -89,7 +90,7 @@ namespace InvoiceMe
             }
         }
         
-
+        // not in use just an example and debug method
         public void ReadMyData(string myConnString, string myTable)
         {
             SQLiteConnection sqConnection = new SQLiteConnection(myConnString);
@@ -102,8 +103,7 @@ namespace InvoiceMe
                 // Always call Read before accessing data.
                 while (sqReader.Read())
                 {
-                    Debug.WriteLine(sqReader.GetInt32(0).ToString() + " " +
-                    sqReader.GetString(1) + " " + sqReader.GetString(2));                   
+                    Debug.WriteLine(sqReader.GetInt32(0).ToString() + " " + sqReader.GetString(1) + " " + sqReader.GetString(2));                                      
                 }
             }
             finally
@@ -115,7 +115,74 @@ namespace InvoiceMe
                 sqConnection.Close();
             }
         }
+        // returns a list of a column ( used to fill combo boxes )
+        public List<string> columnReturnData(string myConnString, string myTable, string column)
+        {
+            List<string> columnData = new List<string>();
+            using(SQLiteConnection conn = new SQLiteConnection(myConnString))
+            {
+                conn.Open();
+                string query = "SELECT " + column + " FROM [" + myTable + "]";
+                using (SQLiteCommand sqcommand = new SQLiteCommand(query, conn))
+                {
+                    using (SQLiteDataReader reader = sqcommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            try
+                            {
+                                columnData.Add(reader.GetString(0));
+                            }
+                            catch (InvalidCastException)
+                            {
+                                columnData.Add(reader.GetInt32(0).ToString());
+                            }
 
+                        }
+                    }
+                }
+            }
+            return columnData;
+        }
+        // return a list of data from a certain row ( possible rename )
+        public List<string> singleColumnReturnData(string myConnString, string myTable, string row)
+        {
+            List<string> rowData = new List<string>();
+            using (SQLiteConnection conn = new SQLiteConnection(myConnString))
+            {
+                conn.Open();
+                string query = "SELECT * FROM [" + myTable + "]  WHERE[ClientID] = "+row;
+                using (SQLiteCommand sqcommand = new SQLiteCommand(query, conn))
+                {
+                    using (SQLiteDataReader reader = sqcommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                try
+                                {
+                                    rowData.Add(reader.GetString(i));
+                                }
+                                catch (InvalidCastException)
+                                {
+                                    try
+                                    {
+                                        rowData.Add(reader.GetInt32(i).ToString());
+                                    }
+                                    catch (InvalidCastException) // assumes is string or int isnt found the filed is a null
+                                    {
+                                        rowData.Add("null");
+                                    }
+                                }
+                            }
+                            
 
+                        }
+                    }
+                }
+            }
+            return rowData;
+        }
     }
 }
