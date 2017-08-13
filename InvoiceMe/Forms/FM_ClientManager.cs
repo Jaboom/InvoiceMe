@@ -44,6 +44,7 @@ namespace InvoiceMe.Forms
                 tickBox_editMode.BackColor = Color.Red;  // red edit button ( indicate editmode is active
                 cb_clientselection.Visible = true;  // show combo box 
                 cb_clientselection.DataSource = sql.columnReturnData(FM_LoginScreen.conString, "ClientTable", "ClientID"); // set combo box data source
+                if (cb_clientselection.Text == "") { MessageBox.Show("yep"); } // SOMETHING AROUND HERE!!! 
                 pnl_edit.BorderStyle = BorderStyle.FixedSingle; // unsink edit pannel
                 btn_save.Text = "Save Changes"; btn_save.BackColor = Color.Tomato;  // change "save button" style
                 lb_clientTitle.Text = "Edit Client";  // change title of form 
@@ -57,20 +58,36 @@ namespace InvoiceMe.Forms
             {
                 if (tb_clientName.Text == "") { MessageBox.Show("Clients Name can not be empty"); return; }
                 //normal save mode ( more error checking required - also option on button save yes / no
+                string message = "You are about to add a new Client: " + tb_clientName.Text;
+                string caption = "ClientTable";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result = MessageBox.Show(message, caption, buttons);
+                if (result == DialogResult.Yes)
+                {
+                    sql.InsertNewClientData(FM_LoginScreen.conString, "ClientTable", tb_clientName.Text
+                    , tb_addressL1.Text, tb_addressL2.Text, tb_postcode.Text, tb_city.Text, tb_telephone.Text
+                    , tb_mobile.Text, tb_email.Text);
 
-                sql.InsertNewClientData(FM_LoginScreen.conString, "ClientTable", tb_clientName.Text
-                , tb_addressL1.Text, tb_addressL2.Text, tb_postcode.Text, tb_city.Text, tb_telephone.Text
-                , tb_mobile.Text, tb_email.Text);
-
-                // set fields back to blank
-                Clear_fields();       
+                    // set fields back to blank
+                    Clear_fields();
+                }
+                      
 
             }else
             {
                 //editing a row in the database ( to be complete )
                 if (tickBox_editMode.Checked)
                 {
+                    string message = "You are about to save your changes to Client: " + tb_clientName.Text;
+                    string caption = "ClientTable";
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                    DialogResult result = MessageBox.Show(message, caption, buttons);
+                    if (result == DialogResult.Yes)
+                    {
 
+
+                        tickBox_editMode.Checked = false;
+                    }
                 }
 
             }
@@ -81,11 +98,20 @@ namespace InvoiceMe.Forms
             //delete a row in client database
             if (tickBox_editMode.Checked)
             {
-
+                string message = "You are about to delete Client: " + tb_clientName.Text;
+                string caption = "ClientTable";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result = MessageBox.Show(message, caption, buttons);
+                if ( result == DialogResult.Yes)
+                {
+                    sql.RemoveRow(FM_LoginScreen.conString, "ClientTable", cb_clientselection.Text);
+                    
+                    tickBox_editMode.Checked = false;
+                }           
             }
         }
         // what happens when combo box is changed
-        private void cb_clientselection_SelectedIndexChanged(object sender, EventArgs e)
+        private void cb_clientselection_SelectedIndexChanged(object  sender, EventArgs e)
         {
             if (tickBox_editMode.Checked)
             {
@@ -96,7 +122,7 @@ namespace InvoiceMe.Forms
         private void Set_fields()
         {
             TextBox[] o_fields = { tb_clientName, tb_addressL1, tb_addressL2, tb_postcode, tb_city, tb_telephone, tb_mobile, tb_email };
-            List<string> l_fields = sql.singleColumnReturnData(FM_LoginScreen.conString, "ClientTable", cb_clientselection.Text);
+            List<string> l_fields = sql.FillForm(FM_LoginScreen.conString, "ClientTable", cb_clientselection.Text);
             for (int i = 0; i < (o_fields.Length); i++)
             {
                 o_fields[i].Text = l_fields[i+1];

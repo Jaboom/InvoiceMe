@@ -32,7 +32,8 @@ namespace InvoiceMe
                 sqConnection.ChangePassword(password);
                 sqConnection.Close();
             }
-        }
+        } // END OF SET DB PASSWORD
+
         // used to check user has an account
         public bool CheckLogin(string myConnString, string myTable, string user, string password)
         {
@@ -40,9 +41,9 @@ namespace InvoiceMe
             {
                 conn.Open();
                 SQLiteCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT count(*) as username FROM [" + myTable + "] WHERE [username] = @username AND [password] = @password;";
-                cmd.Parameters.AddWithValue("@username", user);
-                cmd.Parameters.AddWithValue("@password", password);
+                cmd.CommandText = "SELECT count(*) as username FROM [" + myTable + "] WHERE [username] = :username AND [password] = :password;";
+                cmd.Parameters.Add("username", DbType.String).Value = user;
+                cmd.Parameters.Add("password", DbType.String).Value = password;
                 Int64 count = Convert.ToInt64(cmd.ExecuteScalar());
                 conn.Close();
                 if (count == 1) { return true; } else { return false; }
@@ -62,10 +63,11 @@ namespace InvoiceMe
             DataTable dt = new DataTable(myTable);
             dt.Load(dataReader);
             return dt;
-        }
+        } // END OF CHECK LOGIN
+
         // adds row to client database ( needs some checks like blank fields etc ) 
         // maybe change to overload function with expandable tables and fields
-        public void InsertNewClientData(string myConnString, string myTable, string name, string addr1, string addr2, string pcode, 
+        public void InsertNewClientData(string myConnString, string myTable, string name, string addr1, string addr2, string pcode,
             string city, string telephone, string mobile, string email)
         {
             try
@@ -75,22 +77,30 @@ namespace InvoiceMe
                     SQLiteCommand sqCommand = conn.CreateCommand();
                     sqCommand.CommandText = "INSERT INTO " + myTable + // command to Insert to given table
                     "(ClientName,AddressLine1,AddressLine2,Postcode,City,Telephone,Mobile,Email)" + //given fields for inserting ( currently only set to client table)
-                    "VALUES('" + name + "','" + addr1 + "','" + addr2 + "','" + pcode +  // variables taken from form
-                    "','" + city + "','" + telephone + "','" + mobile + "','" + email + "')"; // variables take from form (not split by ',' )
+                    "VALUES( :name , :addr1 , :addr2 , :pcode , :city , :telephone , :mobile , :email )"; // variables take from form 
+                    sqCommand.Parameters.Add("name", DbType.String).Value = name;
+                    sqCommand.Parameters.Add("addr1", DbType.String).Value = addr1;
+                    sqCommand.Parameters.Add("addr2", DbType.String).Value = addr2;
+                    sqCommand.Parameters.Add("pcode", DbType.String).Value = pcode;
+                    sqCommand.Parameters.Add("city", DbType.String).Value = city;
+                    sqCommand.Parameters.Add("telephone", DbType.String).Value = telephone;
+                    sqCommand.Parameters.Add("mobile", DbType.String).Value = mobile;
+                    sqCommand.Parameters.Add("email", DbType.String).Value = email;
+
                     conn.Open();
                     Debug.WriteLine(sqCommand.CommandText);
                     sqCommand.ExecuteNonQuery();
                     conn.Close();
-                    MessageBox.Show( "Added Successfully",myTable);
+                    MessageBox.Show("Added Successfully", myTable);
                 }
             }
-            catch
+            catch (SQLiteException sqlex)
             {
-                MessageBox.Show( "Error: " + 1 + "x" + 1.ToString("x") + "/nPlease Report this");
+                MessageBox.Show("ErrorCode: " + sqlex.ErrorCode + "\n" + sqlex.Message , myTable);
             }
-        }
-        
-        // not in use just an example and debug method
+        } // END OF INSERT NEW CLIENT DATA
+
+        // not in use just an example and debug method  ( POSSIBLE REMOVE SOON )
         public void ReadMyData(string myConnString, string myTable)
         {
             SQLiteConnection sqConnection = new SQLiteConnection(myConnString);
@@ -103,7 +113,7 @@ namespace InvoiceMe
                 // Always call Read before accessing data.
                 while (sqReader.Read())
                 {
-                    Debug.WriteLine(sqReader.GetInt32(0).ToString() + " " + sqReader.GetString(1) + " " + sqReader.GetString(2));                                      
+                    Debug.WriteLine(sqReader.GetInt32(0).ToString() + " " + sqReader.GetString(1) + " " + sqReader.GetString(2));
                 }
             }
             finally
@@ -114,12 +124,14 @@ namespace InvoiceMe
                 // Close the connection when done with it.
                 sqConnection.Close();
             }
-        }
-        // returns a list of a column ( used to fill combo boxes )
+        } // END OF READ MY DATA
+
+
+        // returns a list of a column ( used to fill combo boxes )  MODIFY TO ALIGN WITH REST OF SQL FUNCTIONS
         public List<string> columnReturnData(string myConnString, string myTable, string column)
         {
             List<string> columnData = new List<string>();
-            using(SQLiteConnection conn = new SQLiteConnection(myConnString))
+            using (SQLiteConnection conn = new SQLiteConnection(myConnString))
             {
                 conn.Open();
                 string query = "SELECT " + column + " FROM [" + myTable + "]";
@@ -143,46 +155,71 @@ namespace InvoiceMe
                 }
             }
             return columnData;
-        }
-        // return a list of data from a certain row ( possible rename )
-        public List<string> singleColumnReturnData(string myConnString, string myTable, string row)
+        } // END OF COLUMN RETURN DATA
+
+        // return a list of data from a certain row
+        public List<string> FillForm(string myConnString, string myTable, string row)
         {
             List<string> rowData = new List<string>();
             using (SQLiteConnection conn = new SQLiteConnection(myConnString))
             {
+                SQLiteCommand sqcommand = conn.CreateCommand();
+                sqcommand.CommandText = "SELECT * FROM [" + myTable + "]  WHERE[ClientID] = :row";
+                sqcommand.Parameters.Add("row", DbType.Int16).Value = row;
                 conn.Open();
-                string query = "SELECT * FROM [" + myTable + "]  WHERE[ClientID] = "+row;
-                using (SQLiteCommand sqcommand = new SQLiteCommand(query, conn))
+                using (SQLiteDataReader reader = sqcommand.ExecuteReader())
                 {
-                    using (SQLiteDataReader reader = sqcommand.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        for (int i = 0; i < reader.FieldCount; i++)
                         {
-                            for (int i = 0; i < reader.FieldCount; i++)
+                            try
+                            {
+                                rowData.Add(reader.GetString(i));
+                            }
+                            catch (InvalidCastException)
                             {
                                 try
                                 {
-                                    rowData.Add(reader.GetString(i));
+                                    rowData.Add(reader.GetInt32(i).ToString());
                                 }
-                                catch (InvalidCastException)
+                                catch (InvalidCastException) // assumes is string or int isnt found the field is a null
                                 {
-                                    try
-                                    {
-                                        rowData.Add(reader.GetInt32(i).ToString());
-                                    }
-                                    catch (InvalidCastException) // assumes is string or int isnt found the filed is a null
-                                    {
-                                        rowData.Add("null");
-                                    }
+                                    rowData.Add("null");
                                 }
                             }
-                            
-
                         }
                     }
+                    conn.Close();
                 }
             }
             return rowData;
+        } // END OF FILL FORM
+
+        public void RemoveRow(string myConnString, string myTable, string row)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(myConnString))
+                {
+                    SQLiteCommand sqCommand = conn.CreateCommand();
+                    sqCommand.CommandText = "DELETE FROM " + myTable + " WHERE ClientID = :row;";
+                    sqCommand.Parameters.Add("row", DbType.Int16).Value = row;
+                    conn.Open();
+                    sqCommand.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+            catch (SQLiteException Sqlex)
+            {
+                MessageBox.Show(Sqlex.Message);
+                return;
+            }
         }
+        // END OF REMOVE ROW
+
+
+
+
     }
 }

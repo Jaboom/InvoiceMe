@@ -52,8 +52,8 @@
             this.cb_clientselection = new System.Windows.Forms.ComboBox();
             this.tickBox_editMode = new System.Windows.Forms.CheckBox();
             this.pnl_edit = new System.Windows.Forms.Panel();
-            this.btn_save = new System.Windows.Forms.Button();
             this.btn_delete = new System.Windows.Forms.Button();
+            this.btn_save = new System.Windows.Forms.Button();
             this.pnl_edit.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -256,6 +256,7 @@
             // 
             // cb_clientselection
             // 
+            this.cb_clientselection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_clientselection.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_clientselection.FormattingEnabled = true;
             this.cb_clientselection.Location = new System.Drawing.Point(202, 17);
@@ -291,20 +292,6 @@
             this.pnl_edit.Size = new System.Drawing.Size(828, 74);
             this.pnl_edit.TabIndex = 23;
             // 
-            // btn_save
-            // 
-            this.btn_save.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.btn_save.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_save.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_save.Font = new System.Drawing.Font("Hobo Std", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_save.Location = new System.Drawing.Point(210, 470);
-            this.btn_save.Name = "btn_save";
-            this.btn_save.Size = new System.Drawing.Size(208, 59);
-            this.btn_save.TabIndex = 23;
-            this.btn_save.Text = "Save";
-            this.btn_save.UseVisualStyleBackColor = false;
-            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
-            // 
             // btn_delete
             // 
             this.btn_delete.BackColor = System.Drawing.Color.Gray;
@@ -318,6 +305,20 @@
             this.btn_delete.Text = "Delete";
             this.btn_delete.UseVisualStyleBackColor = false;
             this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
+            // 
+            // btn_save
+            // 
+            this.btn_save.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.btn_save.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_save.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_save.Font = new System.Drawing.Font("Hobo Std", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_save.Location = new System.Drawing.Point(210, 470);
+            this.btn_save.Name = "btn_save";
+            this.btn_save.Size = new System.Drawing.Size(208, 59);
+            this.btn_save.TabIndex = 23;
+            this.btn_save.Text = "Save";
+            this.btn_save.UseVisualStyleBackColor = false;
+            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
             // FM_ClientManager
             // 
