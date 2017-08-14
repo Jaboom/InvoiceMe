@@ -68,7 +68,7 @@ namespace InvoiceMe
         // adds row to client database ( needs some checks like blank fields etc ) 
         // maybe change to overload function with expandable tables and fields
         public void InsertNewClientData(string myConnString, string myTable, string name, string addr1, string addr2, string pcode,
-            string city, string telephone, string mobile, string email)
+                                        string city, string telephone, string mobile, string email)
         {
             try
             {
@@ -76,8 +76,8 @@ namespace InvoiceMe
                 {
                     SQLiteCommand sqCommand = conn.CreateCommand();
                     sqCommand.CommandText = "INSERT INTO " + myTable + // command to Insert to given table
-                    "(ClientName,AddressLine1,AddressLine2,Postcode,City,Telephone,Mobile,Email)" + //given fields for inserting ( currently only set to client table)
-                    "VALUES( :name , :addr1 , :addr2 , :pcode , :city , :telephone , :mobile , :email )"; // variables take from form 
+                                            "(ClientName,AddressLine1,AddressLine2,Postcode,City,Telephone,Mobile,Email)" + 
+                                            "VALUES( :name , :addr1 , :addr2 , :pcode , :city , :telephone , :mobile , :email )";
                     sqCommand.Parameters.Add("name", DbType.String).Value = name;
                     sqCommand.Parameters.Add("addr1", DbType.String).Value = addr1;
                     sqCommand.Parameters.Add("addr2", DbType.String).Value = addr2;
@@ -88,7 +88,6 @@ namespace InvoiceMe
                     sqCommand.Parameters.Add("email", DbType.String).Value = email;
 
                     conn.Open();
-                    Debug.WriteLine(sqCommand.CommandText);
                     sqCommand.ExecuteNonQuery();
                     conn.Close();
                     MessageBox.Show("Added Successfully", myTable);
@@ -96,7 +95,7 @@ namespace InvoiceMe
             }
             catch (SQLiteException sqlex)
             {
-                MessageBox.Show("ErrorCode: " + sqlex.ErrorCode + "\n" + sqlex.Message , myTable);
+                MessageBox.Show("ErrorCode: " + sqlex.ErrorCode + "\n" + sqlex.Message, myTable);
             }
         } // END OF INSERT NEW CLIENT DATA
 
@@ -126,30 +125,27 @@ namespace InvoiceMe
             }
         } // END OF READ MY DATA
 
-
-        // returns a list of a column ( used to fill combo boxes )  MODIFY TO ALIGN WITH REST OF SQL FUNCTIONS
+        // returns a list of a column ( used to fill combo boxes )
         public List<string> columnReturnData(string myConnString, string myTable, string column)
         {
             List<string> columnData = new List<string>();
             using (SQLiteConnection conn = new SQLiteConnection(myConnString))
             {
+                SQLiteCommand sqcommand = conn.CreateCommand();
+                sqcommand.CommandText = "SELECT " + column + " FROM [" + myTable + "]";
                 conn.Open();
-                string query = "SELECT " + column + " FROM [" + myTable + "]";
-                using (SQLiteCommand sqcommand = new SQLiteCommand(query, conn))
-                {
-                    using (SQLiteDataReader reader = sqcommand.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            try
-                            {
-                                columnData.Add(reader.GetString(0));
-                            }
-                            catch (InvalidCastException)
-                            {
-                                columnData.Add(reader.GetInt32(0).ToString());
-                            }
 
+                using (SQLiteDataReader reader = sqcommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        try
+                        {
+                            columnData.Add(reader.GetString(0));
+                        }
+                        catch (InvalidCastException)
+                        {
+                            columnData.Add(reader.GetInt32(0).ToString());
                         }
                     }
                 }
@@ -218,8 +214,39 @@ namespace InvoiceMe
         }
         // END OF REMOVE ROW
 
+        //edit current selected row (combobox selection)
+        public void UpdateChangesClientTable(string myConnString, string myTable, int ClientID, string name, string addr1, string addr2,
+                                            string pcode, string city, string telephone, string mobile, string email)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(myConnString))
+                {
+                    SQLiteCommand sqCommand = conn.CreateCommand();
+                    sqCommand.CommandText = "update " + myTable +" set ClientName = :name , AddressLine1 = :addr1 , AddressLine2 = :addr2 "
+                                            + ", Postcode = :pcode, City = :city, Telephone = :telephone, Mobile = :mobile, Email = :email "
+                                            + "where ClientID = :clientID";
+                    sqCommand.Parameters.AddWithValue("clientID", DbType.Int16).Value = ClientID;
+                    sqCommand.Parameters.Add("name", DbType.String).Value = name;
+                    sqCommand.Parameters.Add("addr1", DbType.String).Value = addr1;
+                    sqCommand.Parameters.Add("addr2", DbType.String).Value = addr2;
+                    sqCommand.Parameters.Add("pcode", DbType.String).Value = pcode;
+                    sqCommand.Parameters.Add("city", DbType.String).Value = city;
+                    sqCommand.Parameters.Add("telephone", DbType.String).Value = telephone;
+                    sqCommand.Parameters.Add("mobile", DbType.String).Value = mobile;
+                    sqCommand.Parameters.Add("email", DbType.String).Value = email;
 
-
+                    conn.Open();
+                    sqCommand.ExecuteNonQuery();
+                    conn.Close();
+                    MessageBox.Show("Update Successfully", myTable);
+                }
+            }
+            catch (SQLiteException sqlex)
+            {
+                MessageBox.Show("ErrorCode: " + sqlex.ErrorCode + "\n" + sqlex.Message, myTable);
+            }
+        }  // END OF UPDATE CHANGES TO CLIENT TABLE
 
     }
 }

@@ -65,8 +65,8 @@ namespace InvoiceMe.Forms
                 if (result == DialogResult.Yes)
                 {
                     sql.InsertNewClientData(FM_LoginScreen.conString, "ClientTable", tb_clientName.Text
-                    , tb_addressL1.Text, tb_addressL2.Text, tb_postcode.Text, tb_city.Text, tb_telephone.Text
-                    , tb_mobile.Text, tb_email.Text);
+                                            , tb_addressL1.Text, tb_addressL2.Text, tb_postcode.Text, tb_city.Text, 
+                                            tb_telephone.Text, tb_mobile.Text, tb_email.Text);
 
                     // set fields back to blank
                     Clear_fields();
@@ -84,7 +84,9 @@ namespace InvoiceMe.Forms
                     DialogResult result = MessageBox.Show(message, caption, buttons);
                     if (result == DialogResult.Yes)
                     {
-
+                        sql.UpdateChangesClientTable(FM_LoginScreen.conString, "ClientTable", Convert.ToInt32(cb_clientselection.Text)
+                                                    , tb_clientName.Text, tb_addressL1.Text, tb_addressL2.Text, tb_postcode.Text
+                                                    , tb_city.Text, tb_telephone.Text, tb_mobile.Text, tb_email.Text);
 
                         tickBox_editMode.Checked = false;
                     }
