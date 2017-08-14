@@ -13,7 +13,7 @@ Simple invoice program
 ### Scripting
 - Loging form functions with DB            (Done)
 - Contact form to add contacts to DB		(Done)
-- Contacts form to edit existing contacts
+- Contacts form to edit existing contacts	(Done)
 - Invoice form to add invoice to DB
 - Invoice form to edit existing invoices
 - Overview form to show Invoice table      (Done)
