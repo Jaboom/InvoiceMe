@@ -12,8 +12,8 @@ Simple invoice program
 
 ### Scripting
 - Loging form functions with DB            (Done)
-- Contact form to add contacts to DB
-- Contacts form to edit existing contacts
+- Contact form to add contacts to DB		(Done)
+- Contacts form to edit existing contacts	(Done)
 - Invoice form to add invoice to DB
 - Invoice form to edit existing invoices
 - Overview form to show Invoice table      (Done)
@@ -26,6 +26,7 @@ Simple invoice program
 ## Stage 2
 ### UI design
 - revise UI design
+- sort TAB functions on all forms
 
 ### Scripting
 - Print form  to print Inovices
