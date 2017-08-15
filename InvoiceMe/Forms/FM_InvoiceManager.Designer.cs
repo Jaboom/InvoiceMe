@@ -90,7 +90,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Hobo Std", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(13, 155);
+            this.label2.Location = new System.Drawing.Point(13, 91);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(133, 40);
             this.label2.TabIndex = 1;
@@ -436,6 +436,7 @@
             // 
             // cb_clientName
             // 
+            this.cb_clientName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_clientName.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_clientName.FormattingEnabled = true;
             this.cb_clientName.Location = new System.Drawing.Point(241, 89);
@@ -443,6 +444,7 @@
             this.cb_clientName.Name = "cb_clientName";
             this.cb_clientName.Size = new System.Drawing.Size(315, 37);
             this.cb_clientName.TabIndex = 16;
+            this.cb_clientName.SelectedIndexChanged += new System.EventHandler(this.cb_clientName_SelectedIndexChanged);
             // 
             // lb_clientLatepaid
             // 
@@ -488,7 +490,7 @@
             // 
             this.lb_clientAddress.AutoSize = true;
             this.lb_clientAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_clientAddress.Location = new System.Drawing.Point(14, 296);
+            this.lb_clientAddress.Location = new System.Drawing.Point(84, 280);
             this.lb_clientAddress.Name = "lb_clientAddress";
             this.lb_clientAddress.Size = new System.Drawing.Size(189, 116);
             this.lb_clientAddress.TabIndex = 11;
@@ -558,7 +560,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Hobo Std", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(13, 91);
+            this.label11.Location = new System.Drawing.Point(14, 155);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(178, 40);
             this.label11.TabIndex = 2;

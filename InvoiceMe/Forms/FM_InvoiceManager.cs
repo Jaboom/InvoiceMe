@@ -12,9 +12,13 @@ namespace InvoiceMe.Forms
 {
     public partial class FM_InvoiceManager : Form
     {
+        SqliteHandler sql = new SqliteHandler();
+
         public FM_InvoiceManager()
         {
             InitializeComponent();
+            cb_clientName.DataSource = sql.columnReturnData(FM_LoginScreen.conString, "ClientTable", "ClientID");
+                
             //lb_producedDate.Text = DateTime.Today.ToShortDateString();
         }
 
@@ -85,6 +89,34 @@ namespace InvoiceMe.Forms
                 // Edit Invoice
 
 
+            }
+        }
+
+        private void cb_clientName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Set_Client_fields();
+        }
+
+        private void Set_Client_fields()
+        {
+            //NOTE: lb_clientID is currently being used as NAME label, until i make Name field a unquie key)
+            Label[] labels = { lb_clientID, lb_clientAddress, lb_clientTelephone, lb_clientMobile, lb_clientEmail, lb_clientLatepaid };
+            List<string> Cdata = sql.FillForm(FM_LoginScreen.conString, "ClientTable", cb_clientName.Text);            
+            
+            // Seting fields ( note 4 data strings to lb_clientaddress label )
+            lb_clientAddress.Text = ""; // set address field to empty
+
+            int data = 1;
+            for (int i = 0; i < labels.Length; i++)
+            {
+                if (i == 1) // if we are on client addresslabel
+                {
+                    for (int ii = 2; ii < 6; ii++, data++) // loop 4 sets of data
+                    {
+                        labels[i].Text += Cdata[data] + "\n"; // setting address label
+                    }
+                }
+                else { labels[i].Text = Cdata[data]; data++; } // setting all other labels
             }
         }
     }
