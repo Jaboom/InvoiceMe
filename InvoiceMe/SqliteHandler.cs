@@ -99,31 +99,55 @@ namespace InvoiceMe
             }
         } // END OF INSERT NEW CLIENT DATA
 
-        // not in use just an example and debug method  ( POSSIBLE REMOVE SOON )
-        public void ReadMyData(string myConnString, string myTable)
+        // adds row to invoice database 
+        public void InsertNewInvoiceData(string myConnString, string myTable, string ClientID, string Amount, 
+                                        string Description, string ProducedDate, 
+                                        bool Received, string ReceivedDate, 
+                                        bool Paid, string PaidDate)
         {
-            SQLiteConnection sqConnection = new SQLiteConnection(myConnString);
-            SQLiteCommand sqCommand = (SQLiteCommand)sqConnection.CreateCommand();
-            sqCommand.CommandText = "SELECT * FROM [" + myTable + "];";
-            sqConnection.Open();
-            SQLiteDataReader sqReader = sqCommand.ExecuteReader();
             try
             {
-                // Always call Read before accessing data.
-                while (sqReader.Read())
+                using (SQLiteConnection conn = new SQLiteConnection(myConnString))
                 {
-                    Debug.WriteLine(sqReader.GetInt32(0).ToString() + " " + sqReader.GetString(1) + " " + sqReader.GetString(2));
+                    SQLiteCommand sqCommand = conn.CreateCommand();
+                    sqCommand.CommandText = "INSERT INTO " + myTable + // command to Insert to given table
+                                            "(ClientID,InvoiceAmount,InvoiceDescription,ProducedDate,Received,ReceivedDate,Paid,PaidDate)" +
+                                            "VALUES( :id , :amount , :description , :produced , :received , :receiveddate , :paid , :paiddate  )";
+                    sqCommand.Parameters.Add("id", DbType.Int32).Value = ClientID;
+                    sqCommand.Parameters.Add("amount", DbType.Double).Value = Amount;
+                    sqCommand.Parameters.Add("description", DbType.String).Value = Description;
+                    sqCommand.Parameters.Add("produced", DbType.String).Value = ProducedDate;
+                    sqCommand.Parameters.Add("received", DbType.String).Value = Received;
+                    sqCommand.Parameters.Add("receiveddate", DbType.String).Value = ReceivedDate;
+                    sqCommand.Parameters.Add("paid", DbType.String).Value = Paid;
+                    sqCommand.Parameters.Add("paiddate", DbType.String).Value = PaidDate;
+
+                    conn.Open();
+                    sqCommand.ExecuteNonQuery();
+                    conn.Close();
+                    MessageBox.Show("Added Successfully", myTable);
                 }
             }
-            finally
+            catch (SQLiteException sqlex)
             {
-                // always call Close when done reading.
-                sqReader.Close();
-
-                // Close the connection when done with it.
-                sqConnection.Close();
+                MessageBox.Show("ErrorCode: " + sqlex.ErrorCode + "\n" + sqlex.Message, myTable);
             }
-        } // END OF READ MY DATA
+        } // END OF INSERT NEW INVOICE DATA
+
+        public DataTable FilterDataTable(string myConnString, string myTable, string filter)
+        {
+            SQLiteConnection sqConnection = new SQLiteConnection(myConnString);
+            sqConnection.Open();
+
+            SQLiteCommand sqCommand = (SQLiteCommand)sqConnection.CreateCommand();
+            sqCommand.CommandText = "SELECT * FROM [" + myTable + "] WHERE [ClientID] = :id;";
+            sqCommand.Parameters.Add("id", DbType.Int32).Value = filter;
+
+            SQLiteDataReader dataReader = sqCommand.ExecuteReader();
+            DataTable dt = new DataTable(myTable);
+            dt.Load(dataReader);
+            return dt;
+        } // END OF CHECK LOGIN
 
         // returns a list of a column ( used to fill combo boxes )
         public List<string> columnReturnData(string myConnString, string myTable, string column)

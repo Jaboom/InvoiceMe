@@ -55,6 +55,7 @@
             this.tb_invoiceAmount = new System.Windows.Forms.TextBox();
             this.tb_InvoiceDescription = new System.Windows.Forms.TextBox();
             this.lb_invoiceTitle = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.cb_clientName = new System.Windows.Forms.ComboBox();
             this.lb_clientLatepaid = new System.Windows.Forms.Label();
@@ -210,6 +211,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Info;
+            this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Panel2.Controls.Add(this.label17);
             this.splitContainer1.Panel2.Controls.Add(this.cb_clientName);
             this.splitContainer1.Panel2.Controls.Add(this.lb_clientLatepaid);
@@ -263,7 +265,7 @@
             // 
             this.lb_editof.AutoSize = true;
             this.lb_editof.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_editof.Location = new System.Drawing.Point(174, 12);
+            this.lb_editof.Location = new System.Drawing.Point(186, 12);
             this.lb_editof.Name = "lb_editof";
             this.lb_editof.Size = new System.Drawing.Size(33, 29);
             this.lb_editof.TabIndex = 27;
@@ -274,22 +276,24 @@
             // 
             this.lb_invoiceTotal.AutoSize = true;
             this.lb_invoiceTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_invoiceTotal.Location = new System.Drawing.Point(220, 12);
+            this.lb_invoiceTotal.Location = new System.Drawing.Point(219, 12);
             this.lb_invoiceTotal.Name = "lb_invoiceTotal";
-            this.lb_invoiceTotal.Size = new System.Drawing.Size(31, 29);
+            this.lb_invoiceTotal.Size = new System.Drawing.Size(39, 29);
             this.lb_invoiceTotal.TabIndex = 26;
-            this.lb_invoiceTotal.Text = "...";
+            this.lb_invoiceTotal.Text = "10";
             this.lb_invoiceTotal.Visible = false;
             // 
             // tb_invoiceNo
             // 
-            this.tb_invoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_invoiceNo.Location = new System.Drawing.Point(133, 11);
+            this.tb_invoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb_invoiceNo.Location = new System.Drawing.Point(137, 8);
             this.tb_invoiceNo.Name = "tb_invoiceNo";
-            this.tb_invoiceNo.Size = new System.Drawing.Size(28, 34);
+            this.tb_invoiceNo.Size = new System.Drawing.Size(47, 38);
             this.tb_invoiceNo.TabIndex = 25;
+            this.tb_invoiceNo.Text = "1";
             this.tb_invoiceNo.Visible = false;
             this.tb_invoiceNo.TextChanged += new System.EventHandler(this.tb_invoiceNo_TextChanged);
+            this.tb_invoiceNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_invoiceNo_KeyPress);
             // 
             // btn_nextInvoice
             // 
@@ -298,7 +302,7 @@
             this.btn_nextInvoice.Font = new System.Drawing.Font("Hobo Std", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_nextInvoice.Location = new System.Drawing.Point(264, 5);
             this.btn_nextInvoice.Name = "btn_nextInvoice";
-            this.btn_nextInvoice.Size = new System.Drawing.Size(27, 44);
+            this.btn_nextInvoice.Size = new System.Drawing.Size(34, 44);
             this.btn_nextInvoice.TabIndex = 24;
             this.btn_nextInvoice.Text = ">";
             this.btn_nextInvoice.UseVisualStyleBackColor = false;
@@ -312,7 +316,7 @@
             this.btn_previousInvoice.Font = new System.Drawing.Font("Hobo Std", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_previousInvoice.Location = new System.Drawing.Point(93, 5);
             this.btn_previousInvoice.Name = "btn_previousInvoice";
-            this.btn_previousInvoice.Size = new System.Drawing.Size(27, 44);
+            this.btn_previousInvoice.Size = new System.Drawing.Size(34, 44);
             this.btn_previousInvoice.TabIndex = 23;
             this.btn_previousInvoice.Text = "<";
             this.btn_previousInvoice.UseVisualStyleBackColor = false;
@@ -422,6 +426,16 @@
             this.lb_invoiceTitle.TabIndex = 10;
             this.lb_invoiceTitle.Text = "New Invoice";
             this.lb_invoiceTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(27, 759);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 43);
+            this.button1.TabIndex = 26;
+            this.button1.Text = "Debug";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label17
             // 
@@ -634,5 +648,6 @@
         private System.Windows.Forms.Label lb_editof;
         private System.Windows.Forms.Label lb_invoiceTotal;
         private System.Windows.Forms.TextBox tb_invoiceNo;
+        private System.Windows.Forms.Button button1;
     }
 }
