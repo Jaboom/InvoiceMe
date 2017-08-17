@@ -14,8 +14,8 @@ Simple invoice program
 - Loging form functions with DB            (Done)
 - Contact form to add contacts to DB		(Done)
 - Contacts form to edit existing contacts	(Done)
-- Invoice form to add invoice to DB
-- Invoice form to edit existing invoices
+- Invoice form to add invoice to DB			(Done)
+- Invoice form to edit existing invoices	(Done)
 - Overview form to show Invoice table      (Done)
 - Overview form to show Contact table      (Done)
 - Print form to output invoice to print
