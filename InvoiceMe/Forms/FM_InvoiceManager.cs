@@ -210,7 +210,6 @@ namespace InvoiceMe.Forms
                 }
 
             }
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -220,11 +219,24 @@ namespace InvoiceMe.Forms
 
         private void tb_invoiceNo_KeyPress(object sender, KeyPressEventArgs e)
         {
+            // Only numbers allowed
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                e.Handled = true;
-                
+                e.Handled = true;                
             }
+        }
+
+        private void tb_invoiceAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Only numbers and one '.' allowed
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+                if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+                {                   
+                    e.Handled = true;                             
+                }
+            }          
         }
     }
 }

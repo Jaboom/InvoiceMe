@@ -406,6 +406,7 @@
             this.tb_invoiceAmount.Name = "tb_invoiceAmount";
             this.tb_invoiceAmount.Size = new System.Drawing.Size(246, 34);
             this.tb_invoiceAmount.TabIndex = 12;
+            this.tb_invoiceAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_invoiceAmount_KeyPress);
             // 
             // tb_InvoiceDescription
             // 
