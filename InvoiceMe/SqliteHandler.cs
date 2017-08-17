@@ -216,14 +216,16 @@ namespace InvoiceMe
             return rowData;
         } // END OF FILL FORM
 
-        public void RemoveRow(string myConnString, string myTable, string row)
+        // Remove a row
+        public void RemoveRow(string myConnString, string myTable,string columntitle, string row)
         {
             try
             {
                 using (SQLiteConnection conn = new SQLiteConnection(myConnString))
                 {
                     SQLiteCommand sqCommand = conn.CreateCommand();
-                    sqCommand.CommandText = "DELETE FROM " + myTable + " WHERE ClientID = :row;";
+                    sqCommand.CommandText = "DELETE FROM " + myTable + " WHERE " + columntitle + " = :row;";
+                    //sqCommand.Parameters.AddWithValue("column", columntitle);
                     sqCommand.Parameters.Add("row", DbType.Int16).Value = row;
                     conn.Open();
                     sqCommand.ExecuteNonQuery();
@@ -235,6 +237,7 @@ namespace InvoiceMe
                 MessageBox.Show(Sqlex.Message);
                 return;
             }
+            MessageBox.Show("Deletion Successful", myTable);
         }
         // END OF REMOVE ROW
 
@@ -250,7 +253,7 @@ namespace InvoiceMe
                     sqCommand.CommandText = "update " + myTable +" set ClientName = :name , AddressLine1 = :addr1 , AddressLine2 = :addr2 "
                                             + ", Postcode = :pcode, City = :city, Telephone = :telephone, Mobile = :mobile, Email = :email "
                                             + "where ClientID = :clientID";
-                    sqCommand.Parameters.AddWithValue("clientID", DbType.Int16).Value = ClientID;
+                    sqCommand.Parameters.Add("clientID", DbType.Int16).Value = ClientID;
                     sqCommand.Parameters.Add("name", DbType.String).Value = name;
                     sqCommand.Parameters.Add("addr1", DbType.String).Value = addr1;
                     sqCommand.Parameters.Add("addr2", DbType.String).Value = addr2;
@@ -272,5 +275,42 @@ namespace InvoiceMe
             }
         }  // END OF UPDATE CHANGES TO CLIENT TABLE
 
+
+        //edit current selected row (combobox selection)
+        public void UpdateChangesInvoiceTable(string myConnString, string myTable, int InvoiceID, string ClientID, string Amount,
+                                                string Description, string ProducedDate,
+                                                bool Received, string ReceivedDate,
+                                                bool Paid, string PaidDate)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(myConnString))
+                {
+                    SQLiteCommand sqCommand = conn.CreateCommand();
+                    sqCommand.CommandText = "update " + myTable + " set ClientID = :id , InvoiceAmount = :amount , InvoiceDescription = :description "
+                                            + ", ProducedDate = :produced, Received = :received, ReceivedDate = :receiveddate "
+                                            + ", Paid = :paid, PaidDate = :paiddate "
+                                            + "where InvoiceID = :invoiceID";
+                    sqCommand.Parameters.Add("invoiceID", DbType.Int32).Value = InvoiceID;
+                    sqCommand.Parameters.Add("id", DbType.Int32).Value = ClientID;
+                    sqCommand.Parameters.Add("amount", DbType.Double).Value = Amount;
+                    sqCommand.Parameters.Add("description", DbType.String).Value = Description;
+                    sqCommand.Parameters.Add("produced", DbType.String).Value = ProducedDate;
+                    sqCommand.Parameters.Add("received", DbType.String).Value = Received;
+                    sqCommand.Parameters.Add("receiveddate", DbType.String).Value = ReceivedDate;
+                    sqCommand.Parameters.Add("paid", DbType.String).Value = Paid;
+                    sqCommand.Parameters.Add("paiddate", DbType.String).Value = PaidDate;
+
+                    conn.Open();
+                    sqCommand.ExecuteNonQuery();
+                    conn.Close();
+                    MessageBox.Show("Update Successfully", myTable);
+                }
+            }
+            catch (SQLiteException sqlex)
+            {
+                MessageBox.Show("ErrorCode: " + sqlex.ErrorCode + "\n" + sqlex.Message, myTable);
+            }
+        }  // END OF UPDATE CHANGES TO INVOICE TABLE
     }
 }

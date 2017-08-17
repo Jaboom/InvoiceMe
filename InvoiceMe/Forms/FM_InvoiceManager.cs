@@ -20,6 +20,8 @@ namespace InvoiceMe.Forms
         {
             InitializeComponent();
             cb_clientName.DataSource = sql.columnReturnData(FM_LoginScreen.conString, "ClientTable", "ClientID");
+            //this.Size = new System.Drawing.Size(1200, 900);
+            //this.MinimumSize = new System.Drawing.Size(1200, 900);
         }
 
         private void FM_InvoiceManager_FormClosed(object sender, FormClosedEventArgs e)
@@ -53,9 +55,9 @@ namespace InvoiceMe.Forms
                 pnl_edit.BorderStyle = BorderStyle.Fixed3D;
                 btn_new.Text = "Create New"; btn_new.BackColor = Color.MediumSeaGreen;
                 lb_invoiceTitle.Text = "New Invoice";
-                btn_previousInvoice.Visible = btn_nextInvoice.Visible =
+                btn_previousInvoice.Visible = btn_nextInvoice.Visible = btn_delete.Visible =
                 tb_invoiceNo.Visible = lb_editof.Visible = lb_invoiceTotal.Visible = false;
-                Clear_fields();
+                Clear_Invoice_fields();
             }
             else
             {
@@ -63,7 +65,7 @@ namespace InvoiceMe.Forms
                 pnl_edit.BorderStyle = BorderStyle.FixedSingle;
                 btn_new.Text = "Edit Invoice"; btn_new.BackColor = Color.LightCoral;
                 lb_invoiceTitle.Text = "Edit Invoice";
-                btn_previousInvoice.Visible = btn_nextInvoice.Visible =
+                btn_previousInvoice.Visible = btn_nextInvoice.Visible = btn_delete.Visible =
                 tb_invoiceNo.Visible = lb_editof.Visible = lb_invoiceTotal.Visible = true;
                 tb_invoiceNo.Text = "1";
                 Set_Invoice_fields();
@@ -74,7 +76,7 @@ namespace InvoiceMe.Forms
             Set_Client_fields();
             tb_invoiceNo.Text = "1";
             Set_Data_Table();
-            lb_invoiceTotal.Text = Convert.ToString(dt.Rows.Count);
+            //lb_invoiceTotal.Text = Convert.ToString(dt.Rows.Count);
         }
 
         private void btn_previousInvoice_Click(object sender, EventArgs e)
@@ -115,6 +117,30 @@ namespace InvoiceMe.Forms
             Set_Invoice_fields();
         }
 
+        private string GetRecievedDate()
+        {
+            if (tickbox_Receied.Checked)
+            {
+                return dtp_receivedDate.Value.ToShortDateString();
+            }
+            else
+            {
+                return "- - / - - / - - - -";
+            }
+        }
+        private string GetPaidDate()
+        {
+            if (tickbox_paid.Checked)
+            {
+                return dtp_paidDate.Value.ToShortDateString();
+            }
+            else
+            {
+                return "- - / - - / - - - -";
+            }
+        }
+
+
         private void btn_new_Click(object sender, EventArgs e)
         {
             if( tickBox_editMode.Checked == false)
@@ -126,23 +152,44 @@ namespace InvoiceMe.Forms
                 string caption = "InvoiceTable";
                 MessageBoxButtons buttons = MessageBoxButtons.YesNo;
                 DialogResult result = MessageBox.Show(message, caption, buttons);
+                string receivedDate = GetRecievedDate();
+                string paidDate = GetPaidDate();
+
                 if (result == DialogResult.Yes)
                 {
                     sql.InsertNewInvoiceData(FM_LoginScreen.conString, "InvoiceTable", cb_clientName.Text, tb_invoiceAmount.Text,
                                                 tb_InvoiceDescription.Text, DateTime.Today.ToShortDateString(), tickbox_Receied.Checked,
-                                                "- - / - - / - - - -", tickbox_paid.Checked, "- - / - - / - - - -");
-                    Set_Data_Table();
-                    // set fields back to blank
-                    Clear_fields();
+                                                receivedDate, tickbox_paid.Checked, paidDate);                    
                 }
 
             }
             else
             {
                 // Edit Invoice
+                if (tb_invoiceAmount.Text == "" || tb_InvoiceDescription.Text == "") { MessageBox.Show("Invoice Amount or Description can not be empty"); return; }
+                //normal save mode ( more error checking required - also option on button save yes / no
+                string message = "You are about to Change Invoice: " + lb_invoiceID.Text + " for: " + lb_clientID.Text;
+                string caption = "InvoiceTable";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result = MessageBox.Show(message, caption, buttons);
+                string receivedDate = GetRecievedDate();
+                string paidDate = GetPaidDate();
+
+                if (result == DialogResult.Yes)
+                {
+                    sql.UpdateChangesInvoiceTable(FM_LoginScreen.conString, "InvoiceTable", Convert.ToInt32(lb_invoiceID.Text)
+                                                , cb_clientName.Text, tb_invoiceAmount.Text, tb_InvoiceDescription.Text
+                                                , DateTime.Today.ToShortDateString(), tickbox_Receied.Checked
+                                                , receivedDate, tickbox_paid.Checked, paidDate);
+                }
 
 
             }
+            //             
+            Set_Data_Table();
+            tickBox_editMode.Checked = false;
+            Set_form_state();
+            // ADD a method to update LaidPaid in client Table ( this is only place the LaidPaid will need updating )
         }
 
         private void Set_Client_fields()
@@ -172,7 +219,7 @@ namespace InvoiceMe.Forms
             dt = sql.FilterDataTable(FM_LoginScreen.conString, "InvoiceTable", cb_clientName.Text);
             Set_Invoice_fields();
         }
-        private void Clear_fields()
+        private void Clear_Invoice_fields()
         {
             lb_invoiceID.Text = "...";
             tb_invoiceAmount.Text = "";
@@ -202,10 +249,19 @@ namespace InvoiceMe.Forms
                     lb_receivedDate.Text = (string)dt.Rows[currentrow][6];
                     tickbox_paid.Checked = (bool)dt.Rows[currentrow][7];
                     lb_paidDate.Text = (string)dt.Rows[currentrow][8];
-                }catch (IndexOutOfRangeException)
+                    lb_invoiceTotal.Text = Convert.ToString(dt.Rows.Count);
+                    if ((string)dt.Rows[currentrow][6] == "- - / - - / - - - -" ) { dtp_receivedDate.Value = DateTime.Today; }
+                    else { dtp_receivedDate.Value = Convert.ToDateTime(dt.Rows[currentrow][6]); }
+                    if ((string)dt.Rows[currentrow][8] == "- - / - - / - - - -") { dtp_paidDate.Value = DateTime.Today; }
+                    else { dtp_paidDate.Value = Convert.ToDateTime(dt.Rows[currentrow][8]); }
+                    //lb_receivedDate.Text = (string)dt.Rows[currentrow][6];
+                    //lb_paidDate.Text = (string)dt.Rows[currentrow][8];
+                }
+                catch (IndexOutOfRangeException)
                 {
                     MessageBox.Show("No Data for this client");
-                    Clear_fields(); tickBox_editMode.Checked = false;
+                    //Clear_Invoice_fields();
+                    tickBox_editMode.Checked = false;
                     Set_form_state();
                 }
 
@@ -237,6 +293,24 @@ namespace InvoiceMe.Forms
                     e.Handled = true;                             
                 }
             }          
+        }
+
+        private void btn_delete_Click(object sender, EventArgs e)
+        {
+            if (tickBox_editMode.Checked)
+            {
+                string message = "You are about to Delete Invoice: " + lb_invoiceID.Text + "\nThat belongs to: " + lb_clientID.Text;
+                string caption = "InvoiceTabel";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result = MessageBox.Show(message, caption, buttons);
+                if (result == DialogResult.Yes)
+                {
+                    sql.RemoveRow(FM_LoginScreen.conString, "InvoiceTable", "InvoiceID",lb_invoiceID.Text);
+
+                    tickBox_editMode.Checked = false;
+                    Set_Data_Table();
+                }
+            }
         }
     }
 }

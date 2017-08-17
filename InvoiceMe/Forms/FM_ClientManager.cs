@@ -106,7 +106,7 @@ namespace InvoiceMe.Forms
                 DialogResult result = MessageBox.Show(message, caption, buttons);
                 if ( result == DialogResult.Yes)
                 {
-                    sql.RemoveRow(FM_LoginScreen.conString, "ClientTable", cb_clientselection.Text);
+                    sql.RemoveRow(FM_LoginScreen.conString, "ClientTable", "ClientID" ,cb_clientselection.Text);
                     
                     tickBox_editMode.Checked = false;
                 }           
