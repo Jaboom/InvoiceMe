@@ -30,9 +30,14 @@ Simple invoice program
 
 ### Scripting
 - Print form  to print Inovices				(Done)
+- Add feature: incase of empty LoginTable create new Account
+- Set up Params file for Company
+- Change way Invoice Creation is done 
+- Checking on deletion of client there are no invoices stored with ID
+- Workout if Client needs LatePaid field updated
 
 ## Stage 3
 ###  Features
-- Add feature: incase of empty LoginTable create new Account
 - Add Admin Field to Login Table
 - Admins to have access to Creation of new Accounts
+- Client LatePaid checks , Last invoice check is late, Add amount to bill based on terms and conditions
