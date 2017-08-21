@@ -18,7 +18,7 @@ Simple invoice program
 - Invoice form to edit existing invoices	(Done)
 - Overview form to show Invoice table      (Done)
 - Overview form to show Contact table      (Done)
-- Print form to output invoice to print
+- Print form to output invoice to print		(Done)
 
 ### Feedback
 - Fonts changes to more readable font		(Done)
@@ -29,7 +29,10 @@ Simple invoice program
 - sort TAB functions on all forms
 
 ### Scripting
-- Print form  to print Inovices
+- Print form  to print Inovices				(Done)
 
 ## Stage 3
-###  entries yet...
+###  Features
+- Add feature: incase of empty LoginTable create new Account
+- Add Admin Field to Login Table
+- Admins to have access to Creation of new Accounts
