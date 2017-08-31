@@ -37,11 +37,12 @@ namespace InvoiceMe.Forms
         {
             _dt_invoice = sql.FilterDataTable(FM_LoginScreen.conString, "InvoiceTable", cb_clientID.Text);
             List<string> invoiceID = new List<string>();
-            if (_dt_invoice.Rows.Count == 0) { ClearInvoiceInfo(); return; }
+            if (_dt_invoice.Rows.Count == 0) { cb_invoiceNo.DataSource = new List<string>(); ClearInvoiceInfo(); return; }
             for (int dtrows = 0; dtrows < _dt_invoice.Rows.Count; dtrows++)
             {
                 invoiceID.Add(Convert.ToString(_dt_invoice.Rows[dtrows][0]));
             }
+            //Debug.WriteLine("invoiceID cound = " + invoiceID.Count);
             cb_invoiceNo.DataSource = invoiceID;
             SetInvoiceinfo();
         }
