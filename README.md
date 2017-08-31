@@ -8,7 +8,7 @@ Simple invoice program
 - Contact form  (Done)
 - Invoice form 	(Done)
 - Overview form (Done)
-- Print form 
+- Print form 	(Done)
 
 ### Scripting
 - Loging form functions with DB            (Done)
@@ -32,8 +32,9 @@ Simple invoice program
 - Print form  to print Inovices				(Done)
 - Add feature: incase of empty LoginTable create new Account
 - Set up Params file for Company
-- Change way Invoice Creation is done 
-- Checking on deletion of client there are no invoices stored with ID
+- Change way Invoice Creation is done : Important (string needs to be "'unit' 'Description' @ 'UnitCost' = 'TotalCost'")
+
+- Checking on deletion of client there are no invoices stored with ID : Important
 - Workout if Client needs LatePaid field updated
 
 ## Stage 3
