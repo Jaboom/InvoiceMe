@@ -94,9 +94,17 @@ namespace InvoiceMe.Forms
 
             }
         }
-        // to complete
+        
         private void btn_delete_Click(object sender, EventArgs e)
         {
+            //Client has invoice ?
+            int hasinvoice = sql.ClientHasInvoiceCheck(FM_LoginScreen.conString, "InvoiceTable", cb_clientselection.Text);
+            if (hasinvoice > 0)
+            {
+                MessageBox.Show("Unable to delete client!\n" + tb_clientName.Text + " has invoices present", "SQL Conflict");
+                return;
+            }            
+
             //delete a row in client database
             if (tickBox_editMode.Checked)
             {
@@ -112,6 +120,7 @@ namespace InvoiceMe.Forms
                 }           
             }
         }
+
         // what happens when combo box is changed
         private void cb_clientselection_SelectedIndexChanged(object  sender, EventArgs e)
         {

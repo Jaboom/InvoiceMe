@@ -34,6 +34,22 @@ namespace InvoiceMe
             }
         } // END OF SET DB PASSWORD
 
+        // Check if any entries in a table with a filter
+        public int ClientHasInvoiceCheck(string myConnString, string myTable, string clientID)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(myConnString))
+            {
+                conn.Open();
+                SQLiteCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT count(*) as username FROM[" + myTable + "] WHERE[ClientID] = :clientID;";
+                cmd.Parameters.Add("clientID", DbType.Int32).Value = clientID;
+                Int32 count = Convert.ToInt32(cmd.ExecuteScalar());
+                conn.Close();
+                if ( count > 0 ) { return count; } else { return 0; }
+            }
+        }
+        //END of FILTER CHECK
+
         // used to check user has an account
         public bool CheckLogin(string myConnString, string myTable, string user, string password)
         {
