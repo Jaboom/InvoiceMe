@@ -35,7 +35,7 @@ namespace InvoiceMe
         } // END OF SET DB PASSWORD
 
         // Check if any entries in a table with a filter
-        public int ClientHasInvoiceCheck(string myConnString, string myTable, string clientID)
+        public bool ClientHasInvoiceCheck(string myConnString, string myTable, string clientID)
         {
             using (SQLiteConnection conn = new SQLiteConnection(myConnString))
             {
@@ -45,7 +45,7 @@ namespace InvoiceMe
                 cmd.Parameters.Add("clientID", DbType.Int32).Value = clientID;
                 Int32 count = Convert.ToInt32(cmd.ExecuteScalar());
                 conn.Close();
-                if ( count > 0 ) { return count; } else { return 0; }
+                if ( count > 0 ) { return true; } else { return false; }
             }
         }
         //END of FILTER CHECK

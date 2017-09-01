@@ -98,8 +98,8 @@ namespace InvoiceMe.Forms
         private void btn_delete_Click(object sender, EventArgs e)
         {
             //Client has invoice ?
-            int hasinvoice = sql.ClientHasInvoiceCheck(FM_LoginScreen.conString, "InvoiceTable", cb_clientselection.Text);
-            if (hasinvoice > 0)
+            bool hasinvoice = sql.ClientHasInvoiceCheck(FM_LoginScreen.conString, "InvoiceTable", cb_clientselection.Text);
+            if (hasinvoice == true)
             {
                 MessageBox.Show("Unable to delete client!\n" + tb_clientName.Text + " has invoices present", "SQL Conflict");
                 return;
