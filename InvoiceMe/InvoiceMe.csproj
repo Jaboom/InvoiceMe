@@ -74,6 +74,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\FM_AddItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FM_AddItem.Designer.cs">
+      <DependentUpon>FM_AddItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FM_ClientManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +119,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqliteHandler.cs" />
+    <EmbeddedResource Include="Forms\FM_AddItem.resx">
+      <DependentUpon>FM_AddItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FM_ClientManager.resx">
       <DependentUpon>FM_ClientManager.cs</DependentUpon>
     </EmbeddedResource>
