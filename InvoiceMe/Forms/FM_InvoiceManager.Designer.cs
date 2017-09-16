@@ -39,8 +39,12 @@
             this.label9 = new System.Windows.Forms.Label();
             this.lb_invoiceID = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btn_addItem = new System.Windows.Forms.Button();
+            this.dtp_paidDate = new System.Windows.Forms.DateTimePicker();
+            this.dtp_receivedDate = new System.Windows.Forms.DateTimePicker();
             this.btn_new = new System.Windows.Forms.Button();
             this.pnl_edit = new System.Windows.Forms.Panel();
+            this.btn_delete = new System.Windows.Forms.Button();
             this.lb_editof = new System.Windows.Forms.Label();
             this.lb_invoiceTotal = new System.Windows.Forms.Label();
             this.tb_invoiceNo = new System.Windows.Forms.TextBox();
@@ -69,9 +73,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.btn_delete = new System.Windows.Forms.Button();
-            this.dtp_receivedDate = new System.Windows.Forms.DateTimePicker();
-            this.dtp_paidDate = new System.Windows.Forms.DateTimePicker();
+            this.btn_editItem = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -191,6 +193,8 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.splitContainer1.Panel1.Controls.Add(this.btn_editItem);
+            this.splitContainer1.Panel1.Controls.Add(this.btn_addItem);
             this.splitContainer1.Panel1.Controls.Add(this.dtp_paidDate);
             this.splitContainer1.Panel1.Controls.Add(this.dtp_receivedDate);
             this.splitContainer1.Panel1.Controls.Add(this.btn_new);
@@ -236,6 +240,38 @@
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 10;
             // 
+            // btn_addItem
+            // 
+            this.btn_addItem.BackColor = System.Drawing.Color.SkyBlue;
+            this.btn_addItem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_addItem.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_addItem.Font = new System.Drawing.Font("Hobo Std", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_addItem.Location = new System.Drawing.Point(294, 159);
+            this.btn_addItem.Name = "btn_addItem";
+            this.btn_addItem.Size = new System.Drawing.Size(120, 35);
+            this.btn_addItem.TabIndex = 28;
+            this.btn_addItem.Text = "Add Item";
+            this.btn_addItem.UseVisualStyleBackColor = false;
+            this.btn_addItem.Click += new System.EventHandler(this.btn_addItem_Click);
+            // 
+            // dtp_paidDate
+            // 
+            this.dtp_paidDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtp_paidDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtp_paidDate.Location = new System.Drawing.Point(358, 643);
+            this.dtp_paidDate.Name = "dtp_paidDate";
+            this.dtp_paidDate.Size = new System.Drawing.Size(192, 38);
+            this.dtp_paidDate.TabIndex = 27;
+            // 
+            // dtp_receivedDate
+            // 
+            this.dtp_receivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtp_receivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtp_receivedDate.Location = new System.Drawing.Point(358, 515);
+            this.dtp_receivedDate.Name = "dtp_receivedDate";
+            this.dtp_receivedDate.Size = new System.Drawing.Size(192, 38);
+            this.dtp_receivedDate.TabIndex = 26;
+            // 
             // btn_new
             // 
             this.btn_new.BackColor = System.Drawing.Color.MediumSeaGreen;
@@ -265,6 +301,20 @@
             this.pnl_edit.Name = "pnl_edit";
             this.pnl_edit.Size = new System.Drawing.Size(358, 59);
             this.pnl_edit.TabIndex = 24;
+            // 
+            // btn_delete
+            // 
+            this.btn_delete.BackColor = System.Drawing.Color.Red;
+            this.btn_delete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_delete.Font = new System.Drawing.Font("Hobo Std", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_delete.Location = new System.Drawing.Point(311, 5);
+            this.btn_delete.Name = "btn_delete";
+            this.btn_delete.Size = new System.Drawing.Size(34, 44);
+            this.btn_delete.TabIndex = 28;
+            this.btn_delete.Text = "X";
+            this.btn_delete.UseVisualStyleBackColor = false;
+            this.btn_delete.Visible = false;
+            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
             // 
             // lb_editof
             // 
@@ -406,21 +456,28 @@
             // 
             // tb_invoiceAmount
             // 
+            this.tb_invoiceAmount.BackColor = System.Drawing.SystemColors.Window;
+            this.tb_invoiceAmount.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tb_invoiceAmount.Enabled = false;
             this.tb_invoiceAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_invoiceAmount.Location = new System.Drawing.Point(296, 390);
             this.tb_invoiceAmount.Name = "tb_invoiceAmount";
+            this.tb_invoiceAmount.ReadOnly = true;
             this.tb_invoiceAmount.Size = new System.Drawing.Size(246, 34);
             this.tb_invoiceAmount.TabIndex = 12;
-            this.tb_invoiceAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_invoiceAmount_KeyPress);
             // 
             // tb_InvoiceDescription
             // 
+            this.tb_InvoiceDescription.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tb_InvoiceDescription.Enabled = false;
             this.tb_InvoiceDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_InvoiceDescription.Location = new System.Drawing.Point(19, 207);
             this.tb_InvoiceDescription.Multiline = true;
             this.tb_InvoiceDescription.Name = "tb_InvoiceDescription";
+            this.tb_InvoiceDescription.ReadOnly = true;
             this.tb_InvoiceDescription.Size = new System.Drawing.Size(523, 163);
             this.tb_InvoiceDescription.TabIndex = 11;
+            this.tb_InvoiceDescription.TextChanged += new System.EventHandler(this.tb_InvoiceDescription_TextChanged);
             // 
             // lb_invoiceTitle
             // 
@@ -576,37 +633,20 @@
             this.label11.TabIndex = 2;
             this.label11.Text = "Client Name";
             // 
-            // btn_delete
+            // btn_editItem
             // 
-            this.btn_delete.BackColor = System.Drawing.Color.Red;
-            this.btn_delete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_delete.Font = new System.Drawing.Font("Hobo Std", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_delete.Location = new System.Drawing.Point(311, 5);
-            this.btn_delete.Name = "btn_delete";
-            this.btn_delete.Size = new System.Drawing.Size(34, 44);
-            this.btn_delete.TabIndex = 28;
-            this.btn_delete.Text = "X";
-            this.btn_delete.UseVisualStyleBackColor = false;
-            this.btn_delete.Visible = false;
-            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
-            // 
-            // dtp_receivedDate
-            // 
-            this.dtp_receivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtp_receivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_receivedDate.Location = new System.Drawing.Point(358, 515);
-            this.dtp_receivedDate.Name = "dtp_receivedDate";
-            this.dtp_receivedDate.Size = new System.Drawing.Size(192, 38);
-            this.dtp_receivedDate.TabIndex = 26;
-            // 
-            // dtp_paidDate
-            // 
-            this.dtp_paidDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtp_paidDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_paidDate.Location = new System.Drawing.Point(358, 643);
-            this.dtp_paidDate.Name = "dtp_paidDate";
-            this.dtp_paidDate.Size = new System.Drawing.Size(192, 38);
-            this.dtp_paidDate.TabIndex = 27;
+            this.btn_editItem.BackColor = System.Drawing.Color.Tomato;
+            this.btn_editItem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_editItem.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_editItem.Font = new System.Drawing.Font("Hobo Std", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_editItem.Location = new System.Drawing.Point(422, 159);
+            this.btn_editItem.Name = "btn_editItem";
+            this.btn_editItem.Size = new System.Drawing.Size(120, 35);
+            this.btn_editItem.TabIndex = 29;
+            this.btn_editItem.Text = "Edit Item";
+            this.btn_editItem.UseVisualStyleBackColor = false;
+            this.btn_editItem.Visible = false;
+            this.btn_editItem.Click += new System.EventHandler(this.btn_editItem_Click);
             // 
             // FM_InvoiceManager
             // 
@@ -657,7 +697,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lb_producedDate;
-        private System.Windows.Forms.TextBox tb_invoiceAmount;
         private System.Windows.Forms.TextBox tb_InvoiceDescription;
         private System.Windows.Forms.CheckBox tickbox_Receied;
         private System.Windows.Forms.CheckBox tickbox_paid;
@@ -682,5 +721,8 @@
         private System.Windows.Forms.Button btn_delete;
         private System.Windows.Forms.DateTimePicker dtp_paidDate;
         private System.Windows.Forms.DateTimePicker dtp_receivedDate;
+        private System.Windows.Forms.Button btn_addItem;
+        private System.Windows.Forms.TextBox tb_invoiceAmount;
+        private System.Windows.Forms.Button btn_editItem;
     }
 }

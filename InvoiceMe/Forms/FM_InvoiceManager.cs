@@ -58,17 +58,23 @@ namespace InvoiceMe.Forms
                 btn_previousInvoice.Visible = btn_nextInvoice.Visible = btn_delete.Visible =
                 tb_invoiceNo.Visible = lb_editof.Visible = lb_invoiceTotal.Visible = false;
                 Clear_Invoice_fields();
+                //tb_InvoiceDescription.Enabled = false; tb_InvoiceDescription.ReadOnly = true;
+                tb_InvoiceDescription.Cursor = Cursors.Default;
+                btn_editItem.Visible = false;
             }
             else
             {
                 tickBox_editMode.BackColor = Color.Red;
                 pnl_edit.BorderStyle = BorderStyle.FixedSingle;
-                btn_new.Text = "Edit Invoice"; btn_new.BackColor = Color.LightCoral;
+                btn_new.Text = "Save Changes"; btn_new.BackColor = Color.LightCoral;
                 lb_invoiceTitle.Text = "Edit Invoice";
                 btn_previousInvoice.Visible = btn_nextInvoice.Visible = btn_delete.Visible =
                 tb_invoiceNo.Visible = lb_editof.Visible = lb_invoiceTotal.Visible = true;
                 tb_invoiceNo.Text = "1";
                 Set_Invoice_fields();
+                //tb_InvoiceDescription.Enabled = true; tb_InvoiceDescription.ReadOnly = false;
+                tb_InvoiceDescription.Cursor = Cursors.IBeam;
+                btn_editItem.Visible = true;
             }
         }
         private void cb_clientName_SelectedIndexChanged(object sender, EventArgs e)
@@ -143,6 +149,7 @@ namespace InvoiceMe.Forms
 
         private void btn_new_Click(object sender, EventArgs e)
         {
+            string invoiceAmount = tb_invoiceAmount.Text.Remove(0, 1);
             if( tickBox_editMode.Checked == false)
             {
                 // New Invoice
@@ -154,10 +161,10 @@ namespace InvoiceMe.Forms
                 DialogResult result = MessageBox.Show(message, caption, buttons);
                 string receivedDate = GetRecievedDate();
                 string paidDate = GetPaidDate();
-
+                
                 if (result == DialogResult.Yes)
                 {
-                    sql.InsertNewInvoiceData(FM_LoginScreen.conString, "InvoiceTable", cb_clientName.Text, tb_invoiceAmount.Text,
+                    sql.InsertNewInvoiceData(FM_LoginScreen.conString, "InvoiceTable", cb_clientName.Text, invoiceAmount,
                                                 tb_InvoiceDescription.Text, DateTime.Today.ToShortDateString(), tickbox_Receied.Checked,
                                                 receivedDate, tickbox_paid.Checked, paidDate);                    
                 }
@@ -178,7 +185,7 @@ namespace InvoiceMe.Forms
                 if (result == DialogResult.Yes)
                 {
                     sql.UpdateChangesInvoiceTable(FM_LoginScreen.conString, "InvoiceTable", Convert.ToInt32(lb_invoiceID.Text)
-                                                , cb_clientName.Text, tb_invoiceAmount.Text, tb_InvoiceDescription.Text
+                                                , cb_clientName.Text, invoiceAmount, tb_InvoiceDescription.Text
                                                 , DateTime.Today.ToShortDateString(), tickbox_Receied.Checked
                                                 , receivedDate, tickbox_paid.Checked, paidDate);
                 }
@@ -282,19 +289,6 @@ namespace InvoiceMe.Forms
             }
         }
 
-        private void tb_invoiceAmount_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Only numbers and one '.' allowed
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-                if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-                {                   
-                    e.Handled = true;                             
-                }
-            }          
-        }
-
         private void btn_delete_Click(object sender, EventArgs e)
         {
             if (tickBox_editMode.Checked)
@@ -309,6 +303,69 @@ namespace InvoiceMe.Forms
 
                     tickBox_editMode.Checked = false;
                     Set_Data_Table();
+                }
+            }
+        }
+        // Add item to invoice
+        private void btn_addItem_Click(object sender, EventArgs e)
+        {
+            // Open AddItem form
+            using ( var addnew = new FM_AddItem())
+            {
+                // check Accept was clicked
+                var result = addnew.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    string newItem = addnew.returnString;
+                    // Add item to Description
+                    if ((tb_InvoiceDescription.Text.EndsWith(Environment.NewLine)) || tb_InvoiceDescription.Text.Length == 0)
+                    {
+                        tb_InvoiceDescription.Text += newItem;
+                    }
+                    else { tb_InvoiceDescription.Text += Environment.NewLine + newItem; }
+                }
+                if (result == DialogResult.Cancel)
+                {
+                    MessageBox.Show("Canceled");
+                }
+            }
+        }
+
+        private void tb_InvoiceDescription_TextChanged(object sender, EventArgs e)
+        {
+            int i = 0;
+            string[] splitDescription = tb_InvoiceDescription.Text.Replace(System.Environment.NewLine, "\n").Split('\n');
+            double grTotal = 0; // declaire grand total variable
+            foreach (string s in splitDescription)
+            {
+                try
+                {
+                    string total = s.Split('@')[1].Split('=')[1].TrimStart(' ');
+                    double gTotal;
+                    Double.TryParse(total.TrimStart('£'), out gTotal);
+
+                    grTotal = grTotal + gTotal;
+                }
+                catch (IndexOutOfRangeException) { i++; if (i > 1) { MessageBox.Show("Array Index of " + i, "InvoiceAmount"); } }
+            }
+            tb_invoiceAmount.Text = grTotal.ToString("C");
+        }
+
+        private void btn_editItem_Click(object sender, EventArgs e)
+        {
+            using (var addnew = new FM_EditItem(tb_InvoiceDescription.Text))
+            {
+                // check Accept was clicked
+                var result = addnew.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    string newItem = addnew.returnString;
+                    // Add item to Description
+                    tb_InvoiceDescription.Text = newItem; 
+                }
+                if (result == DialogResult.Cancel)
+                {
+                    MessageBox.Show("Canceled");
                 }
             }
         }
