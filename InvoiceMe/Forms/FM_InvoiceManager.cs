@@ -58,22 +58,23 @@ namespace InvoiceMe.Forms
                 btn_previousInvoice.Visible = btn_nextInvoice.Visible = btn_delete.Visible =
                 tb_invoiceNo.Visible = lb_editof.Visible = lb_invoiceTotal.Visible = false;
                 Clear_Invoice_fields();
-                tb_InvoiceDescription.Enabled = false; tb_InvoiceDescription.ReadOnly = true;
+                //tb_InvoiceDescription.Enabled = false; tb_InvoiceDescription.ReadOnly = true;
                 tb_InvoiceDescription.Cursor = Cursors.Default;
-                
+                btn_editItem.Visible = false;
             }
             else
             {
                 tickBox_editMode.BackColor = Color.Red;
                 pnl_edit.BorderStyle = BorderStyle.FixedSingle;
-                btn_new.Text = "Edit Invoice"; btn_new.BackColor = Color.LightCoral;
+                btn_new.Text = "Save Changes"; btn_new.BackColor = Color.LightCoral;
                 lb_invoiceTitle.Text = "Edit Invoice";
                 btn_previousInvoice.Visible = btn_nextInvoice.Visible = btn_delete.Visible =
                 tb_invoiceNo.Visible = lb_editof.Visible = lb_invoiceTotal.Visible = true;
                 tb_invoiceNo.Text = "1";
                 Set_Invoice_fields();
-                tb_InvoiceDescription.Enabled = true; tb_InvoiceDescription.ReadOnly = false;
+                //tb_InvoiceDescription.Enabled = true; tb_InvoiceDescription.ReadOnly = false;
                 tb_InvoiceDescription.Cursor = Cursors.IBeam;
+                btn_editItem.Visible = true;
             }
         }
         private void cb_clientName_SelectedIndexChanged(object sender, EventArgs e)
@@ -317,7 +318,11 @@ namespace InvoiceMe.Forms
                 {
                     string newItem = addnew.returnString;
                     // Add item to Description
-                    tb_InvoiceDescription.Text += newItem;
+                    if ((tb_InvoiceDescription.Text.EndsWith(Environment.NewLine)) || tb_InvoiceDescription.Text.Length == 0)
+                    {
+                        tb_InvoiceDescription.Text += newItem;
+                    }
+                    else { tb_InvoiceDescription.Text += Environment.NewLine + newItem; }
                 }
                 if (result == DialogResult.Cancel)
                 {
@@ -344,6 +349,25 @@ namespace InvoiceMe.Forms
                 catch (IndexOutOfRangeException) { i++; if (i > 1) { MessageBox.Show("Array Index of " + i, "InvoiceAmount"); } }
             }
             tb_invoiceAmount.Text = grTotal.ToString("C");
+        }
+
+        private void btn_editItem_Click(object sender, EventArgs e)
+        {
+            using (var addnew = new FM_EditItem(tb_InvoiceDescription.Text))
+            {
+                // check Accept was clicked
+                var result = addnew.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    string newItem = addnew.returnString;
+                    // Add item to Description
+                    tb_InvoiceDescription.Text = newItem; 
+                }
+                if (result == DialogResult.Cancel)
+                {
+                    MessageBox.Show("Canceled");
+                }
+            }
         }
     }
 }

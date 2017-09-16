@@ -26,7 +26,7 @@ namespace InvoiceMe.Forms
             decimal price; decimal.TryParse(tb_price.Text, out price);
             decimal total = nud_unit.Value * price;
             formatedString = nud_unit.Value + " " + cb_Description.Text + " @ " 
-                            + price.ToString("C") + " = " + total.ToString("C") + Environment.NewLine;
+                            + price.ToString("C") + " = " + total.ToString("C");
             
             this.returnString = formatedString;
             this.DialogResult = DialogResult.OK;

@@ -56,6 +56,7 @@
             this.tickbox_paid = new System.Windows.Forms.CheckBox();
             this.tickbox_Receied = new System.Windows.Forms.CheckBox();
             this.lb_producedDate = new System.Windows.Forms.Label();
+            this.tb_invoiceAmount = new System.Windows.Forms.TextBox();
             this.tb_InvoiceDescription = new System.Windows.Forms.TextBox();
             this.lb_invoiceTitle = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -72,7 +73,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.tb_invoiceAmount = new System.Windows.Forms.TextBox();
+            this.btn_editItem = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -192,6 +193,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.splitContainer1.Panel1.Controls.Add(this.btn_editItem);
             this.splitContainer1.Panel1.Controls.Add(this.btn_addItem);
             this.splitContainer1.Panel1.Controls.Add(this.dtp_paidDate);
             this.splitContainer1.Panel1.Controls.Add(this.dtp_receivedDate);
@@ -246,7 +248,7 @@
             this.btn_addItem.Font = new System.Drawing.Font("Hobo Std", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_addItem.Location = new System.Drawing.Point(294, 159);
             this.btn_addItem.Name = "btn_addItem";
-            this.btn_addItem.Size = new System.Drawing.Size(204, 35);
+            this.btn_addItem.Size = new System.Drawing.Size(120, 35);
             this.btn_addItem.TabIndex = 28;
             this.btn_addItem.Text = "Add Item";
             this.btn_addItem.UseVisualStyleBackColor = false;
@@ -452,6 +454,18 @@
             this.lb_producedDate.TabIndex = 13;
             this.lb_producedDate.Text = "- - / - - / - - - -";
             // 
+            // tb_invoiceAmount
+            // 
+            this.tb_invoiceAmount.BackColor = System.Drawing.SystemColors.Window;
+            this.tb_invoiceAmount.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tb_invoiceAmount.Enabled = false;
+            this.tb_invoiceAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb_invoiceAmount.Location = new System.Drawing.Point(296, 390);
+            this.tb_invoiceAmount.Name = "tb_invoiceAmount";
+            this.tb_invoiceAmount.ReadOnly = true;
+            this.tb_invoiceAmount.Size = new System.Drawing.Size(246, 34);
+            this.tb_invoiceAmount.TabIndex = 12;
+            // 
             // tb_InvoiceDescription
             // 
             this.tb_InvoiceDescription.Cursor = System.Windows.Forms.Cursors.Default;
@@ -619,17 +633,20 @@
             this.label11.TabIndex = 2;
             this.label11.Text = "Client Name";
             // 
-            // tb_invoiceAmount
+            // btn_editItem
             // 
-            this.tb_invoiceAmount.BackColor = System.Drawing.SystemColors.Window;
-            this.tb_invoiceAmount.Cursor = System.Windows.Forms.Cursors.Default;
-            this.tb_invoiceAmount.Enabled = false;
-            this.tb_invoiceAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_invoiceAmount.Location = new System.Drawing.Point(296, 390);
-            this.tb_invoiceAmount.Name = "tb_invoiceAmount";
-            this.tb_invoiceAmount.ReadOnly = true;
-            this.tb_invoiceAmount.Size = new System.Drawing.Size(246, 34);
-            this.tb_invoiceAmount.TabIndex = 12;
+            this.btn_editItem.BackColor = System.Drawing.Color.Tomato;
+            this.btn_editItem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_editItem.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_editItem.Font = new System.Drawing.Font("Hobo Std", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_editItem.Location = new System.Drawing.Point(422, 159);
+            this.btn_editItem.Name = "btn_editItem";
+            this.btn_editItem.Size = new System.Drawing.Size(120, 35);
+            this.btn_editItem.TabIndex = 29;
+            this.btn_editItem.Text = "Edit Item";
+            this.btn_editItem.UseVisualStyleBackColor = false;
+            this.btn_editItem.Visible = false;
+            this.btn_editItem.Click += new System.EventHandler(this.btn_editItem_Click);
             // 
             // FM_InvoiceManager
             // 
@@ -706,5 +723,6 @@
         private System.Windows.Forms.DateTimePicker dtp_receivedDate;
         private System.Windows.Forms.Button btn_addItem;
         private System.Windows.Forms.TextBox tb_invoiceAmount;
+        private System.Windows.Forms.Button btn_editItem;
     }
 }
