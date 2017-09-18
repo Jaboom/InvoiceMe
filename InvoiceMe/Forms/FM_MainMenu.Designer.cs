@@ -32,6 +32,8 @@
             this.btn_clientmgr = new System.Windows.Forms.Button();
             this.btn_overview = new System.Windows.Forms.Button();
             this.btn_printinvoices = new System.Windows.Forms.Button();
+            this.lb_userInfo = new System.Windows.Forms.Label();
+            this.btn_extraOptions = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_invoicemgr
@@ -94,12 +96,38 @@
             this.btn_printinvoices.UseVisualStyleBackColor = false;
             this.btn_printinvoices.Click += new System.EventHandler(this.btn_printinvoices_Click);
             // 
+            // lb_userInfo
+            // 
+            this.lb_userInfo.AutoSize = true;
+            this.lb_userInfo.Location = new System.Drawing.Point(13, 13);
+            this.lb_userInfo.Name = "lb_userInfo";
+            this.lb_userInfo.Size = new System.Drawing.Size(50, 17);
+            this.lb_userInfo.TabIndex = 4;
+            this.lb_userInfo.Text = "User : ";
+            // 
+            // btn_extraOptions
+            // 
+            this.btn_extraOptions.BackColor = System.Drawing.SystemColors.Info;
+            this.btn_extraOptions.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_extraOptions.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_extraOptions.Font = new System.Drawing.Font("Hobo Std", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_extraOptions.ForeColor = System.Drawing.Color.Black;
+            this.btn_extraOptions.Location = new System.Drawing.Point(356, 12);
+            this.btn_extraOptions.Name = "btn_extraOptions";
+            this.btn_extraOptions.Size = new System.Drawing.Size(177, 40);
+            this.btn_extraOptions.TabIndex = 5;
+            this.btn_extraOptions.UseVisualStyleBackColor = false;
+            this.btn_extraOptions.Visible = false;
+            this.btn_extraOptions.Click += new System.EventHandler(this.btn_extraOptions_Click);
+            // 
             // FM_MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
             this.ClientSize = new System.Drawing.Size(545, 549);
+            this.Controls.Add(this.btn_extraOptions);
+            this.Controls.Add(this.lb_userInfo);
             this.Controls.Add(this.btn_printinvoices);
             this.Controls.Add(this.btn_overview);
             this.Controls.Add(this.btn_clientmgr);
@@ -111,6 +139,7 @@
             this.Text = "MainMenu";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FM_MainMenu_FormClosed);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -120,5 +149,7 @@
         private System.Windows.Forms.Button btn_clientmgr;
         private System.Windows.Forms.Button btn_overview;
         private System.Windows.Forms.Button btn_printinvoices;
+        private System.Windows.Forms.Label lb_userInfo;
+        private System.Windows.Forms.Button btn_extraOptions;
     }
 }

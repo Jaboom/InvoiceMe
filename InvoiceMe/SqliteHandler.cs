@@ -65,6 +65,93 @@ namespace InvoiceMe
                 if (count == 1) { return true; } else { return false; }
             }
 
+        } // END OF CHECK LOGIN
+
+        public bool CheckAlreadyUser(string myConnString, string myTable, string user, string password)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(myConnString))
+            {
+                conn.Open();
+                SQLiteCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT count(*) as username FROM [" + myTable + "] WHERE [username] = :username;";
+                cmd.Parameters.Add("username", DbType.String).Value = user;
+                Int64 count = Convert.ToInt64(cmd.ExecuteScalar());
+                conn.Close();
+                if (count == 1) { return true; } else { return false; }
+            }
+
+        }
+
+        public bool TableEmpty(string myConnString, string myTable)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(myConnString))
+            {
+                conn.Open();
+                SQLiteCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT count(*) FROM [" + myTable + "];";
+                Int64 count = Convert.ToInt64(cmd.ExecuteScalar());
+                conn.Close();
+                if (count <= 0) { return true; } else { return false; }
+            }
+        }
+
+        public void InsertNewUser(string myConnString, string myTable, string name, string pass)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(myConnString))
+                {
+                    SQLiteCommand sqCommand = conn.CreateCommand();
+                    sqCommand.CommandText = "INSERT INTO " + myTable + // command to Insert to given table
+                                            "(username,password,rank)" +
+                                            "VALUES( :name , :pass , :rank)";
+                    sqCommand.Parameters.Add("name", DbType.String).Value = name;
+                    sqCommand.Parameters.Add("pass", DbType.String).Value = pass;
+                    sqCommand.Parameters.Add("rank", DbType.Int32).Value = 1;
+
+                    conn.Open();
+                    sqCommand.ExecuteNonQuery();
+                    conn.Close();
+                    MessageBox.Show("Added Owner " + name + " Successfully", myTable);
+                }
+            }
+            catch (SQLiteException sqlex)
+            {
+                MessageBox.Show("ErrorCode: " + sqlex.ErrorCode + "\n" + sqlex.Message, myTable);
+            }
+        }
+
+        public List<string> UsersInfo(string myConnString, string myTable, string user, string password)
+        {
+            List<string> userData = new List<string>();
+            using (SQLiteConnection conn = new SQLiteConnection(myConnString))
+            {
+                conn.Open();
+                SQLiteCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM [" + myTable + "] WHERE [username] = :username AND [password] = :password;";
+                cmd.Parameters.Add("username", DbType.String).Value = user;
+                cmd.Parameters.Add("password", DbType.String).Value = password;
+
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            try
+                            {
+                                userData.Add(reader.GetString(i));
+                            }
+                            catch (InvalidCastException)
+                            {
+                                userData.Add(reader.GetInt32(i).ToString());
+                            }
+                        }
+                    }
+                }
+                conn.Close();
+            }
+            return userData;
         }
         // retrive whole data table (used to fill data grids) (possible split to groups depending on how big DB gets)
         public DataTable DataTable(string myConnString, string myTable)
@@ -79,7 +166,7 @@ namespace InvoiceMe
             DataTable dt = new DataTable(myTable);
             dt.Load(dataReader);
             return dt;
-        } // END OF CHECK LOGIN
+        } 
 
         // adds row to client database ( needs some checks like blank fields etc ) 
         // maybe change to overload function with expandable tables and fields
