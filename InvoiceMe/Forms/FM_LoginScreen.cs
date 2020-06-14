@@ -14,12 +14,12 @@ namespace InvoiceMe
     public partial class FM_LoginScreen : Form
     {
         SqliteHandler sql = new SqliteHandler();        
-        static string dbcommectionstring = @"data source=DB\\InvoiceTest.db;"; // use for none password DB's
+        static string dbconnectionstring = @"data source=DB\\InvoiceTest.db;"; // use for none password DB's
         static string passDec = "Password="; static string pass = null; // change pass for choosing DB password
 
         private bool loginEmpty;
 
-        public static string conString = dbcommectionstring;
+        public static string conString = dbconnectionstring;
         public static string _userName = "";
         public static int _userRank = 0;
         public static int _userID = 0;
@@ -48,7 +48,7 @@ namespace InvoiceMe
 
         private void BTNlogin_Click(object sender, EventArgs e)
         {
-            //ReadMyData(dbcommectionstring, "Login");
+            //ReadMyData(dbconnectionstring, "Login");
             if (loginEmpty)
             {
                 if (TBpassword.Text == tb_comfirmPass.Text && TBpassword.Text != "" && TBuser.Text != "")

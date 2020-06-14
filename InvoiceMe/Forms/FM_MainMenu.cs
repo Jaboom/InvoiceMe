@@ -20,7 +20,7 @@ namespace InvoiceMe
         {
             InitializeComponent();
             permissions = AssignUserRank();
-            PermisionsLock(permissions);
+            PermissionsLock(permissions);
         }
         private int AssignUserRank()
         {
@@ -34,7 +34,7 @@ namespace InvoiceMe
             return permissions;
         }
 
-        private void PermisionsLock(int permissionsLevel)
+        private void PermissionsLock(int permissionsLevel)
         {
             switch (permissionsLevel)
             {

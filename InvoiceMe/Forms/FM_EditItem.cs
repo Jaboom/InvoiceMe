@@ -116,7 +116,7 @@ namespace InvoiceMe.Forms
         private bool CheckInputs()
         {
             if ( nud_unit.Value < 1 ) { MessageBox.Show("Units Must be a Positive Number"); return false; }
-            if ( cb_Description.Text == "" ) { MessageBox.Show("Must have a discription"); return false; }
+            if ( cb_Description.Text == "" ) { MessageBox.Show("Must have a description"); return false; }
             if ( tb_price.Text == "") { MessageBox.Show("Must have a Value"); return false; }
 
             return true;
