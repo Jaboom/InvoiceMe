@@ -25,8 +25,8 @@ Simple invoice program
 
 ## Stage 2
 ### UI design
-- revise UI design
-- sort TAB functions on all forms
+- revise UI design (Happy as is)
+- sort TAB functions on all forms (Done)
 
 ### Scripting
 - Print form  to print Inovices				(Done)
