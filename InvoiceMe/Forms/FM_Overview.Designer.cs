@@ -59,11 +59,12 @@
             this.dg_client.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dg_client.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dg_client.Location = new System.Drawing.Point(0, 0);
+            this.dg_client.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dg_client.Name = "dg_client";
             this.dg_client.ReadOnly = true;
             this.dg_client.RowTemplate.Height = 24;
-            this.dg_client.Size = new System.Drawing.Size(818, 226);
-            this.dg_client.TabIndex = 0;
+            this.dg_client.Size = new System.Drawing.Size(612, 175);
+            this.dg_client.TabIndex = 1;
             // 
             // dg_invoice
             // 
@@ -72,11 +73,12 @@
             this.dg_invoice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dg_invoice.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dg_invoice.Location = new System.Drawing.Point(0, 0);
+            this.dg_invoice.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dg_invoice.Name = "dg_invoice";
             this.dg_invoice.ReadOnly = true;
             this.dg_invoice.RowTemplate.Height = 24;
-            this.dg_invoice.Size = new System.Drawing.Size(818, 248);
-            this.dg_invoice.TabIndex = 2;
+            this.dg_invoice.Size = new System.Drawing.Size(612, 191);
+            this.dg_invoice.TabIndex = 0;
             // 
             // splitContainer1
             // 
@@ -84,6 +86,7 @@
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -95,9 +98,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer1.Size = new System.Drawing.Size(824, 589);
-            this.splitContainer1.SplitterDistance = 300;
-            this.splitContainer1.SplitterWidth = 11;
+            this.splitContainer1.Size = new System.Drawing.Size(618, 479);
+            this.splitContainer1.SplitterDistance = 243;
+            this.splitContainer1.SplitterWidth = 9;
             this.splitContainer1.TabIndex = 3;
             // 
             // splitContainer2
@@ -105,6 +108,7 @@
             this.splitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -117,7 +121,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.dg_invoice);
-            this.splitContainer2.Size = new System.Drawing.Size(820, 296);
+            this.splitContainer2.Size = new System.Drawing.Size(614, 239);
             this.splitContainer2.SplitterDistance = 45;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 4;
@@ -125,13 +129,14 @@
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Hobo Std", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.MaximumSize = new System.Drawing.Size(0, 45);
-            this.label1.MinimumSize = new System.Drawing.Size(0, 45);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.MaximumSize = new System.Drawing.Size(0, 37);
+            this.label1.MinimumSize = new System.Drawing.Size(0, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(818, 45);
+            this.label1.Size = new System.Drawing.Size(612, 37);
             this.label1.TabIndex = 3;
             this.label1.Text = "Invoice Overview";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -142,6 +147,7 @@
             this.splitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -154,7 +160,7 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.dg_client);
-            this.splitContainer3.Size = new System.Drawing.Size(820, 274);
+            this.splitContainer3.Size = new System.Drawing.Size(614, 223);
             this.splitContainer3.SplitterDistance = 45;
             this.splitContainer3.SplitterWidth = 1;
             this.splitContainer3.TabIndex = 5;
@@ -162,23 +168,25 @@
             // label2
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Hobo Std", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.MaximumSize = new System.Drawing.Size(0, 45);
-            this.label2.MinimumSize = new System.Drawing.Size(0, 45);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.MaximumSize = new System.Drawing.Size(0, 37);
+            this.label2.MinimumSize = new System.Drawing.Size(0, 37);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(818, 45);
+            this.label2.Size = new System.Drawing.Size(612, 37);
             this.label2.TabIndex = 4;
             this.label2.Text = "Client Overview";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FM_Overview
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 589);
+            this.ClientSize = new System.Drawing.Size(618, 479);
             this.Controls.Add(this.splitContainer1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FM_Overview";
             this.Text = "FM_Overview";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FM_Overview_FormClosed);
